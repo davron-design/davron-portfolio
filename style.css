@@ -1,0 +1,14 @@
+:root {
+  --color-main: #ff5621;
+  --color-a1: #f2ff1e;
+  --color-a2: #de1312;
+  --color-a3: #683ce4;
+  --color-a4: #10e5b2;
+  --color-black: #121212;
+  --color-white: #fafafa;
+}
+
+::selection {
+  color: var(--color-black);
+  background-color: var(--color-white);
+}
