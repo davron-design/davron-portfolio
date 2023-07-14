@@ -1,15 +1,46 @@
 /**
- * @version 0.1
+ * @version 0.1.5
  * @author davron-design.com
  */
 
 'use strict';
 console.log(`local dev`);
 
+//--> Selects
+const bgBrand = document.querySelector('#bg-brand');
+const brandLogo = document.querySelector('#brand-logo');
+const brandLink = document.querySelector('#brand-link');
+const buttonContact = document.querySelector('#button-contact');
+
 //////////////////////////////////////////////////////////////////////////////
 //--SWIPER
 
 //--> Swiper Main [Horizontal]
+const classRemover = function () {
+  brandLogo.classList.remove(
+    'text-color-main',
+    'text-color-a1',
+    'text-color-a2',
+    'text-color-a3',
+    'text-color-a4'
+  );
+  bgBrand.classList.remove(
+    'text-color-main',
+    'text-color-a1',
+    'text-color-a2',
+    'text-color-a3',
+    'text-color-a4'
+  );
+};
+
+const classMap = {
+  0: 'text-color-main',
+  1: 'text-color-a1',
+  2: 'text-color-a2',
+  3: 'text-color-a3',
+  4: 'text-color-a4',
+};
+
 const swiperMain = new Swiper('.swiper.is-main', {
   mousewheel: { enabled: true },
   threshold: 5,
@@ -25,7 +56,7 @@ const swiperMain = new Swiper('.swiper.is-main', {
     prev: {
       rotate: [0, 40, 0],
       shadow: true,
-      translate: ['-100%', '0%', -1000],
+      translate: ['-100%', '0%', -2000],
     },
     limitProgress: 5,
   },
@@ -34,6 +65,32 @@ const swiperMain = new Swiper('.swiper.is-main', {
   keyboard: { enabled: true },
   freeMode: { sticky: true, enabled: true },
   resistanceRatio: 1,
+  on: {
+    slideChange: function () {
+      const realIndex = swiperMain.realIndex;
+      classRemover();
+
+      if (classMap.hasOwnProperty(realIndex)) {
+        const newClass = classMap[realIndex];
+        bgBrand.classList.add(newClass);
+        brandLogo.classList.add(newClass);
+      }
+
+      if (classMap.hasOwnProperty(realIndex)) {
+        const newClass = classMap[realIndex];
+        bgBrand.classList.add(newClass);
+        brandLogo.classList.add(newClass);
+      }
+
+      if (realIndex === 0) {
+        brandLink.classList.remove('is-white');
+        buttonContact.classList.remove('is-white');
+      } else {
+        brandLink.classList.add('is-white');
+        buttonContact.classList.add('is-white');
+      }
+    },
+  },
 });
 
 //--> Swiper Sections [Vertical]
@@ -43,8 +100,7 @@ const swiperHome = new Swiper('.swiper.is-home', {
   observeParents: true,
   watchSlidesProgress: true,
   grabCursor: true,
-  loop: true,
-
+  resistanceRatio: 0.5,
   direction: 'vertical',
 });
 
@@ -54,8 +110,7 @@ const swiperAbout = new Swiper('.swiper.is-about', {
   observeParents: true,
   watchSlidesProgress: true,
   grabCursor: true,
-  loop: true,
-
+  resistanceRatio: 0.5,
   direction: 'vertical',
 });
 
@@ -65,8 +120,7 @@ const swiperWork = new Swiper('.swiper.is-work', {
   observeParents: true,
   watchSlidesProgress: true,
   grabCursor: true,
-  loop: true,
-
+  resistanceRatio: 0.5,
   direction: 'vertical',
 });
 
@@ -76,8 +130,7 @@ const swiperService = new Swiper('.swiper.is-service', {
   observeParents: true,
   watchSlidesProgress: true,
   grabCursor: true,
-  loop: true,
-
+  resistanceRatio: 0.5,
   direction: 'vertical',
 });
 
@@ -87,8 +140,7 @@ const swiperContact = new Swiper('.swiper.is-contact', {
   observeParents: true,
   watchSlidesProgress: true,
   grabCursor: true,
-  loop: true,
-
+  resistanceRatio: 0.5,
   direction: 'vertical',
 });
 
