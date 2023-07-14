@@ -6,7 +6,10 @@
 'use strict';
 console.log(`local dev`);
 
-//--> Swiper
+//////////////////////////////////////////////////////////////////////////////
+//--SWIPER
+
+//--> Swiper Main [Horizontal]
 const swiperMain = new Swiper('.swiper.is-main', {
   mousewheel: { enabled: true },
   threshold: 5,
@@ -19,14 +22,74 @@ const swiperMain = new Swiper('.swiper.is-main', {
   slidesPerGroupAuto: false,
   creativeEffect: {
     next: { shadow: true, translate: ['100%', 0, 0] },
-    prev: { shadow: true, translate: ['-20%', 0, -500] },
+    prev: {
+      rotate: [0, 40, 0],
+      shadow: true,
+      translate: ['-100%', '0%', -1000],
+    },
     limitProgress: 5,
   },
-  parallax: { enabled: true },
   lazy: { enabled: true },
-  speed: 600,
+  speed: 500,
   keyboard: { enabled: true },
-  freeMode: { momentumVelocityRatio: 1, sticky: true, enabled: true },
+  freeMode: { sticky: true, enabled: true },
+  resistanceRatio: 1,
+});
+
+//--> Swiper Sections [Vertical]
+const swiperHome = new Swiper('.swiper.is-home', {
+  threshold: 5,
+  observer: true,
+  observeParents: true,
+  watchSlidesProgress: true,
+  grabCursor: true,
+  loop: true,
+
+  direction: 'vertical',
+});
+
+const swiperAbout = new Swiper('.swiper.is-about', {
+  threshold: 5,
+  observer: true,
+  observeParents: true,
+  watchSlidesProgress: true,
+  grabCursor: true,
+  loop: true,
+
+  direction: 'vertical',
+});
+
+const swiperWork = new Swiper('.swiper.is-work', {
+  threshold: 5,
+  observer: true,
+  observeParents: true,
+  watchSlidesProgress: true,
+  grabCursor: true,
+  loop: true,
+
+  direction: 'vertical',
+});
+
+const swiperService = new Swiper('.swiper.is-service', {
+  threshold: 5,
+  observer: true,
+  observeParents: true,
+  watchSlidesProgress: true,
+  grabCursor: true,
+  loop: true,
+
+  direction: 'vertical',
+});
+
+const swiperContact = new Swiper('.swiper.is-contact', {
+  threshold: 5,
+  observer: true,
+  observeParents: true,
+  watchSlidesProgress: true,
+  grabCursor: true,
+  loop: true,
+
+  direction: 'vertical',
 });
 
 // let swiperNav = new Swiper('.swiper.is-nav', {
