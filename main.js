@@ -1,5 +1,5 @@
 /**
- * @version 0.1.5
+ * @version 0.2
  * @author davron-design.com
  */
 
@@ -17,36 +17,55 @@ const buttonContact = document.querySelector('#button-contact');
 
 //--> Swiper Main [Horizontal]
 const classRemover = function () {
-  brandLogo.classList.remove(
+  const classesToRemove = [
     'text-color-main',
     'text-color-a1',
     'text-color-a2',
     'text-color-a3',
-    'text-color-a4'
-  );
-  bgBrand.classList.remove(
+    'text-color-a4',
     'text-color-stroke-main',
     'text-color-stroke-a1',
     'text-color-stroke-a2',
     'text-color-stroke-a3',
-    'text-color-stroke-a4'
-  );
+    'text-color-stroke-a4',
+    'is-main',
+    'is-about',
+    'is-work',
+    'is-service',
+    'is-contact',
+  ];
+
+  brandLogo.classList.remove(...classesToRemove);
+  bgBrand.classList.remove(...classesToRemove);
+  buttonContact.classList.remove(...classesToRemove);
 };
 
 const classMap = {
-  0: 'text-color-main',
-  1: 'text-color-a1',
-  2: 'text-color-a2',
-  3: 'text-color-a3',
-  4: 'text-color-a4',
-};
-
-const classStrokeMap = {
-  0: 'text-color-stroke-main',
-  1: 'text-color-stroke-a1',
-  2: 'text-color-stroke-a2',
-  3: 'text-color-stroke-a3',
-  4: 'text-color-stroke-a4',
+  0: {
+    textColor: 'text-color-main',
+    strokeColor: 'text-color-stroke-main',
+    contactClass: 'is-main',
+  },
+  1: {
+    textColor: 'text-color-a1',
+    strokeColor: 'text-color-stroke-a1',
+    contactClass: 'is-about',
+  },
+  2: {
+    textColor: 'text-color-a2',
+    strokeColor: 'text-color-stroke-a2',
+    contactClass: 'is-work',
+  },
+  3: {
+    textColor: 'text-color-a3',
+    strokeColor: 'text-color-stroke-a3',
+    contactClass: 'is-service',
+  },
+  4: {
+    textColor: 'text-color-a4',
+    strokeColor: 'text-color-stroke-a4',
+    contactClass: 'is-contact',
+  },
 };
 
 const swiperMain = new Swiper('.swiper.is-main', {
@@ -68,8 +87,7 @@ const swiperMain = new Swiper('.swiper.is-main', {
     },
     limitProgress: 5,
   },
-  lazy: { enabled: true },
-  speed: 500,
+  speed: 600,
   keyboard: { enabled: true },
   freeMode: { sticky: true, enabled: true },
   resistanceRatio: 1,
@@ -79,113 +97,73 @@ const swiperMain = new Swiper('.swiper.is-main', {
       classRemover();
 
       if (classMap.hasOwnProperty(realIndex)) {
-        const newClass = classMap[realIndex];
-        bgBrand.classList.add(newClass);
-        brandLogo.classList.add(newClass);
-      }
-
-      if (classMap.hasOwnProperty(realIndex)) {
-        const newClass = classMap[realIndex];
-        const newClassStroke = classStrokeMap[realIndex];
-        brandLogo.classList.add(newClass);
-        bgBrand.classList.add(newClassStroke);
+        const { textColor, strokeColor, contactClass } = classMap[realIndex];
+        brandLogo.classList.add(textColor);
+        bgBrand.classList.add(strokeColor);
+        buttonContact.classList.add(contactClass);
       }
 
       if (realIndex === 0 || realIndex === 3) {
         brandLink.classList.remove('is-white');
-        buttonContact.classList.remove('is-white');
       } else {
         brandLink.classList.add('is-white');
-        buttonContact.classList.add('is-white');
       }
     },
   },
 });
 
 //--> Swiper Sections [Vertical]
-const swiperHome = new Swiper('.swiper.is-home', {
-  modules: [SwiperGL],
-  effect: 'gl',
-  gl: { shader: 'morph-y' },
+function swiperSection(className) {
+  {
+    return new Swiper('.swiper.' + className, {
+      direction: 'vertical',
+      grabCursor: true,
+      effect: 'creative',
+      coverflowEffect: { depth: 1000, rotate: 90, scale: 1.25, modifier: 1.3 },
+      cubeEffect: { slideShadows: false, shadow: false, shadowScale: 1 },
+      creativeEffect: {
+        prev: {
+          translate: ['0%', 0, -500],
+          rotate: [60, 0, 0],
+          scale: 0.5,
+          shadow: true,
+        },
+        next: {
+          translate: ['0%', '120%', 0],
+          rotate: [-60, 0, 0],
+          scale: 0.5,
+          shadow: true,
+        },
+        limitProgress: 5,
+      },
+      speed: 900,
+      mousewheel: { enabled: true },
+      parallax: { enabled: true },
+      watchSlidesProgress: true,
+      observer: true,
+      observeParents: true,
+      threshold: 5,
+      slidesPerGroupAuto: false,
 
-  mousewheel: { enabled: true },
-  threshold: 5,
-  observer: true,
-  observeParents: true,
-  watchSlidesProgress: true,
-  grabCursor: true,
-  resistanceRatio: 0.5,
-  direction: 'vertical',
-  pagination: {
-    type: 'progressbar',
-    clickable: true,
-    dynamicBullets: true,
-    el: '.swiper-pagination.is-home',
-  },
-});
+      keyboard: { enabled: true },
+      mousewheel: { enabled: true },
+      slidesPerGroupAuto: false,
 
-const swiperAbout = new Swiper('.swiper.is-about', {
-  modules: [SwiperGL],
-  effect: 'gl',
-  gl: { shader: 'morph-y' },
+      resistanceRatio: 0.5,
+      pagination: {
+        type: 'progressbar',
+        clickable: true,
+        dynamicBullets: true,
+        el: '.swiper-pagination.' + className,
+      },
+    });
+  }
+}
 
-  mousewheel: { enabled: true },
-  threshold: 5,
-  observer: true,
-  observeParents: true,
-  watchSlidesProgress: true,
-  grabCursor: true,
-  resistanceRatio: 0.5,
-  direction: 'vertical',
-  pagination: {
-    type: 'progressbar',
-    clickable: true,
-    dynamicBullets: true,
-    el: '.swiper-pagination.is-about',
-  },
-});
-
-const swiperWork = new Swiper('.swiper.is-work', {
-  modules: [SwiperGL],
-  effect: 'gl',
-  gl: { shader: 'morph-y' },
-
-  mousewheel: { enabled: true },
-  threshold: 5,
-  observer: true,
-  observeParents: true,
-  watchSlidesProgress: true,
-  grabCursor: true,
-  resistanceRatio: 0.5,
-  direction: 'vertical',
-  pagination: {
-    type: 'progressbar',
-    clickable: true,
-    dynamicBullets: true,
-    el: '.swiper-pagination.is-work',
-  },
-});
-
-const swiperService = new Swiper('.swiper.is-service', {
-  modules: [SwiperGL],
-  effect: 'gl',
-  gl: { shader: 'morph-y' },
-
-  mousewheel: { enabled: true },
-  threshold: 5,
-  observer: true,
-  observeParents: true,
-  watchSlidesProgress: true,
-  grabCursor: true,
-  resistanceRatio: 0.5,
-  direction: 'vertical',
-  pagination: {
-    type: 'progressbar',
-    clickable: true,
-    dynamicBullets: true,
-    el: '.swiper-pagination.is-service',
-  },
-});
+const swiperHome = swiperSection('is-home');
+const swiperAbout = swiperSection('is-about');
+const swiperWork = swiperSection('is-work');
+const swiperService = swiperSection('is-service');
 
 const swiperContact = new Swiper('.swiper.is-contact', {
   threshold: 5,
@@ -197,66 +175,10 @@ const swiperContact = new Swiper('.swiper.is-contact', {
   direction: 'vertical',
 });
 
-// let swiperNav = new Swiper('.swiper.is-nav', {
-//   threshold: 5,
-//   observer: true,
-//   observeParents: true,
-//   loop: true,
-//   watchSlidesProgress: true,
-//   grabCursor: true,
-//   pagination: { type: 'progressbar' },
-//   keyboard: { enabled: true },
-//   centeredSlides: true,
-//   slidesPerView: 3,
-// });
+//--> Swiper Embedded
 
-// swiperNav.controller.control = swiperMain;
-// swiperMain.controller.control = swiperNav;
-
-// const swiperHome = new Swiper('.swiper.is-home', {
-//   direction: 'vertical',
-//   grabCursor: true,
-//   keyboard: { enabled: true },
-//   parallax: { enabled: true },
-//   watchSlidesProgress: true,
-//   observer: true,
-//   observeParents: true,
-//   resistanceRatio: 0,
-//   threshold: 5,
-//   slidesPerGroupAuto: false,
-// });
-
-// const swiperAbout = new Swiper('.swiper.is-about', {
-//   direction: 'vertical',
-//   grabCursor: true,
-//   keyboard: { enabled: true },
-//   parallax: { enabled: true },
-//   watchSlidesProgress: true,
-//   observer: true,
-//   observeParents: true,
-//   resistanceRatio: 0,
-//   threshold: 5,
-//   slidesPerGroupAuto: false,
-// });
-
-// const swiperCarousel = new Swiper('.swiper.is-carousel', {
-//   slidesPerView: 2,
-//   slidesPerGroup: 2,
-//   centeredSlides: true,
-//   grabCursor: true,
-//   speed: 500,
-//   freeMode: {
-//     enabled: true,
-//     sticky: true,
-//     momentumBounceRatio: 0.2,
-//     momentumRatio: 0.3,
-//     momentumVelocityRatio: 0.3,
-//   },
-//   keyboard: { enabled: true },
-//   watchSlidesProgress: true,
-//   observer: true,
-//   observeParents: true,
-//   resistanceRatio: 0,
-//   threshold: 5,
-//   slidesPerGroupAuto: false,
-// });
+const swiperXP = new Swiper('.swiper-slide-carousel.is-about', {
+  slidesPerView: 'auto',
+  centeredSlides: true,
+  spaceBetween: 24,
+});
