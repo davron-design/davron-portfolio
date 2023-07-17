@@ -6,6 +6,11 @@
   --color-a4: #10e5b2;
   --color-black: #121212;
   --color-white: #fafafa;
+
+  --swiper-theme-color: rgba(181, 255, 0, 1);
+
+  --swiper-pagination-right: 10px;
+  --swiper-pagination-left: auto;
 }
 
 ::selection {
@@ -13,6 +18,18 @@
   background-color: var(--color-white);
 }
 
-.swiper-wrapper {
-  transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+.swiper-pagination.is-home .swiper-pagination-progressbar-fill {
+  background-color: var(--color-main);
+}
+
+.swiper-pagination.is-about .swiper-pagination-progressbar-fill {
+  background-color: var(--color-a1);
+}
+
+.swiper-pagination.is-work .swiper-pagination-progressbar-fill {
+  background-color: var(--color-a2);
+}
+
+.swiper-pagination.is-service .swiper-pagination-progressbar-fill {
+  background-color: var(--color-a3);
 }

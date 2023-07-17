@@ -25,11 +25,11 @@ const classRemover = function () {
     'text-color-a4'
   );
   bgBrand.classList.remove(
-    'text-color-main',
-    'text-color-a1',
-    'text-color-a2',
-    'text-color-a3',
-    'text-color-a4'
+    'text-color-stroke-main',
+    'text-color-stroke-a1',
+    'text-color-stroke-a2',
+    'text-color-stroke-a3',
+    'text-color-stroke-a4'
   );
 };
 
@@ -41,8 +41,16 @@ const classMap = {
   4: 'text-color-a4',
 };
 
+const classStrokeMap = {
+  0: 'text-color-stroke-main',
+  1: 'text-color-stroke-a1',
+  2: 'text-color-stroke-a2',
+  3: 'text-color-stroke-a3',
+  4: 'text-color-stroke-a4',
+};
+
 const swiperMain = new Swiper('.swiper.is-main', {
-  mousewheel: { enabled: true },
+  mousewheel: { enabled: false },
   threshold: 5,
   observer: true,
   observeParents: true,
@@ -78,11 +86,12 @@ const swiperMain = new Swiper('.swiper.is-main', {
 
       if (classMap.hasOwnProperty(realIndex)) {
         const newClass = classMap[realIndex];
-        bgBrand.classList.add(newClass);
+        const newClassStroke = classStrokeMap[realIndex];
         brandLogo.classList.add(newClass);
+        bgBrand.classList.add(newClassStroke);
       }
 
-      if (realIndex === 0) {
+      if (realIndex === 0 || realIndex === 3) {
         brandLink.classList.remove('is-white');
         buttonContact.classList.remove('is-white');
       } else {
@@ -95,6 +104,11 @@ const swiperMain = new Swiper('.swiper.is-main', {
 
 //--> Swiper Sections [Vertical]
 const swiperHome = new Swiper('.swiper.is-home', {
+  modules: [SwiperGL],
+  effect: 'gl',
+  gl: { shader: 'morph-y' },
+
+  mousewheel: { enabled: true },
   threshold: 5,
   observer: true,
   observeParents: true,
@@ -102,9 +116,20 @@ const swiperHome = new Swiper('.swiper.is-home', {
   grabCursor: true,
   resistanceRatio: 0.5,
   direction: 'vertical',
+  pagination: {
+    type: 'progressbar',
+    clickable: true,
+    dynamicBullets: true,
+    el: '.swiper-pagination.is-home',
+  },
 });
 
 const swiperAbout = new Swiper('.swiper.is-about', {
+  modules: [SwiperGL],
+  effect: 'gl',
+  gl: { shader: 'morph-y' },
+
+  mousewheel: { enabled: true },
   threshold: 5,
   observer: true,
   observeParents: true,
@@ -112,9 +137,20 @@ const swiperAbout = new Swiper('.swiper.is-about', {
   grabCursor: true,
   resistanceRatio: 0.5,
   direction: 'vertical',
+  pagination: {
+    type: 'progressbar',
+    clickable: true,
+    dynamicBullets: true,
+    el: '.swiper-pagination.is-about',
+  },
 });
 
 const swiperWork = new Swiper('.swiper.is-work', {
+  modules: [SwiperGL],
+  effect: 'gl',
+  gl: { shader: 'morph-y' },
+
+  mousewheel: { enabled: true },
   threshold: 5,
   observer: true,
   observeParents: true,
@@ -122,9 +158,20 @@ const swiperWork = new Swiper('.swiper.is-work', {
   grabCursor: true,
   resistanceRatio: 0.5,
   direction: 'vertical',
+  pagination: {
+    type: 'progressbar',
+    clickable: true,
+    dynamicBullets: true,
+    el: '.swiper-pagination.is-work',
+  },
 });
 
 const swiperService = new Swiper('.swiper.is-service', {
+  modules: [SwiperGL],
+  effect: 'gl',
+  gl: { shader: 'morph-y' },
+
+  mousewheel: { enabled: true },
   threshold: 5,
   observer: true,
   observeParents: true,
@@ -132,6 +179,12 @@ const swiperService = new Swiper('.swiper.is-service', {
   grabCursor: true,
   resistanceRatio: 0.5,
   direction: 'vertical',
+  pagination: {
+    type: 'progressbar',
+    clickable: true,
+    dynamicBullets: true,
+    el: '.swiper-pagination.is-service',
+  },
 });
 
 const swiperContact = new Swiper('.swiper.is-contact', {
