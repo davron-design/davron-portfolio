@@ -89,7 +89,13 @@ const swiperMain = new Swiper('.swiper.is-main', {
   },
   speed: 600,
   keyboard: { enabled: true },
-  freeMode: { sticky: true, enabled: true },
+  freeMode: {
+    sticky: true,
+    enabled: true,
+    // momentum: true,
+    // momentumBounce: true,
+    // momentumRatio: 0.5,
+  },
   resistanceRatio: 1,
   on: {
     slideChange: function () {
@@ -110,6 +116,17 @@ const swiperMain = new Swiper('.swiper.is-main', {
       }
     },
   },
+
+  hashNavigation: {
+    watchState: true,
+  },
+
+  // history: {
+  //   enabled: true,
+  //   keepQuery: false,
+  //   replaceState: true,
+  //   key: '',
+  // },
 });
 
 //--> Swiper Sections [Vertical]
@@ -165,20 +182,25 @@ const swiperAbout = swiperSection('is-about');
 const swiperWork = swiperSection('is-work');
 const swiperService = swiperSection('is-service');
 
-const swiperContact = new Swiper('.swiper.is-contact', {
-  threshold: 5,
+//--> Swiper Embedded
+const swiperCarousel = new Swiper('.swiper.is-carousel', {
+  centeredSlides: true, // Important!
+  nested: true, // Important!
+  slidesPerView: 'auto',
+
+  // spaceBetween: 16,
+  // autoHeight: true,
+  // grabCursor: true,
+  slideToClickedSlide: true,
+  freeMode: {
+    enabled: true,
+    momentum: true,
+    momentumBounce: false,
+    momentumRatio: 0.2,
+  },
+  keyboard: { enabled: true },
+  watchSlidesProgress: true,
   observer: true,
   observeParents: true,
-  watchSlidesProgress: true,
-  grabCursor: true,
-  resistanceRatio: 0.5,
-  direction: 'vertical',
-});
-
-//--> Swiper Embedded
-
-const swiperXP = new Swiper('.swiper-slide-carousel.is-about', {
-  slidesPerView: 'auto',
-  centeredSlides: true,
-  spaceBetween: 24,
+  threshold: 5,
 });
