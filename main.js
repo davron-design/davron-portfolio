@@ -1,18 +1,25 @@
 /**
- * @version 0.2
+ * @version 0.2.5
  * @author davron-design.com
  */
 
 'use strict';
-console.log(`local dev`);
+console.log('local dev');
 
-//--> Selects
+//--GLOBAL
+// Selects
 const bgBrand = document.querySelector('#bg-brand');
 const brandLogo = document.querySelector('#brand-logo');
 const brandLink = document.querySelector('#brand-link');
 const buttonContact = document.querySelector('#button-contact');
 
-//////////////////////////////////////////////////////////////////////////////
+// Nav Selects
+const navLink = document.querySelectorAll('.nav-link');
+const navContainer = document.querySelector('.nav-container');
+const navMenu = document.querySelector('.nav-menu');
+const navMenuSidebar = document.querySelector('.nav-menu-sidebar');
+const navButton = document.querySelector('.nav-button');
+
 //--SWIPER
 
 //--> Swiper Main [Horizontal]
@@ -33,6 +40,7 @@ const classRemover = function () {
     'is-work',
     'is-service',
     'is-contact',
+    'is-active',
   ];
 
   brandLogo.classList.remove(...classesToRemove);
@@ -117,9 +125,9 @@ const swiperMain = new Swiper('.swiper.is-main', {
     },
   },
 
-  hashNavigation: {
-    watchState: true,
-  },
+  // hashNavigation: {
+  //   watchState: true,
+  // },
 
   // history: {
   //   enabled: true,
@@ -128,6 +136,8 @@ const swiperMain = new Swiper('.swiper.is-main', {
   //   key: '',
   // },
 });
+
+swiperMain.init();
 
 //--> Swiper Sections [Vertical]
 function swiperSection(className) {
@@ -143,13 +153,13 @@ function swiperSection(className) {
           translate: ['0%', 0, -500],
           rotate: [60, 0, 0],
           scale: 0.5,
-          shadow: true,
+          shadow: false,
         },
         next: {
           translate: ['0%', '120%', 0],
           rotate: [-60, 0, 0],
           scale: 0.5,
-          shadow: true,
+          shadow: false,
         },
         limitProgress: 5,
       },
@@ -204,3 +214,43 @@ const swiperCarousel = new Swiper('.swiper.is-carousel', {
   observeParents: true,
   threshold: 5,
 });
+
+//--GSAP
+// const toggleMenu = function () {
+//   const nav = gsap.timeline({ paused: true });
+//   gsap.set(navMenu, { display: 'none' });
+//   nav
+//     .fromTo(
+//       navContainer,
+//       { width: '4rem', height: '4rem' },
+//       {
+//         width: '23rem',
+//         height: '26rem',
+//         duration: 0.25,
+//         ease: 'sine.in',
+//       }
+//     )
+//     .set(navMenu, { display: 'flex' }, '>')
+//     .fromTo(
+//       navMenu,
+//       { opacity: 0, yPercent: 15 },
+//       {
+//         opacity: 1,
+//         yPercent: 0,
+//         duration: 0.5,
+//         ease: 'none',
+//       },
+//       '<'
+//     );
+
+//   let isActive = false;
+
+//   navButton.addEventListener('click', () => {
+//     isActive = !isActive;
+//     if (isActive) {
+//       nav.play();
+//     } else {
+//       nav.reverse();
+//     }
+//   });
+// };
