@@ -1,5 +1,5 @@
 /**
- * @version 0.2.5
+ * @version 0.3
  * @author davron-design.com
  */
 
@@ -11,14 +11,10 @@ console.log('local dev');
 const bgBrand = document.querySelector('#bg-brand');
 const brandLogo = document.querySelector('#brand-logo');
 const brandLink = document.querySelector('#brand-link');
-const buttonContact = document.querySelector('#button-contact');
+const buttonContact = document.querySelector('.button-contact');
 
 // Nav Selects
 const navLink = document.querySelectorAll('.nav-link');
-const navContainer = document.querySelector('.nav-container');
-const navMenu = document.querySelector('.nav-menu');
-const navMenuSidebar = document.querySelector('.nav-menu-sidebar');
-const navButton = document.querySelector('.nav-button');
 
 //--SWIPER
 
@@ -79,30 +75,38 @@ const classMap = {
 const swiperMain = new Swiper('.swiper.is-main', {
   mousewheel: { enabled: false },
   threshold: 5,
-  observer: true,
-  observeParents: true,
+  observer: false,
+  observeParents: false,
   loop: true,
   watchSlidesProgress: true,
   grabCursor: true,
+
   effect: 'creative',
   slidesPerGroupAuto: false,
   creativeEffect: {
-    next: { shadow: true, translate: ['100%', 0, 0] },
+    next: { shadow: false, translate: ['100%', 0, -500] },
     prev: {
       rotate: [0, 40, 0],
-      shadow: true,
+      shadow: false,
       translate: ['-100%', '0%', -2000],
     },
     limitProgress: 5,
   },
-  speed: 600,
+  speed: 800,
+
+  // autoplay: {
+  //   pauseOnMouseEnter: true,
+  //   delay: 5000,
+  //   enabled: true,
+  // },
+
   keyboard: { enabled: true },
   freeMode: {
     sticky: true,
     enabled: true,
-    // momentum: true,
-    // momentumBounce: true,
-    // momentumRatio: 0.5,
+    momentumRatio: 0.5,
+    momentumVelocityRatio: 1,
+    momentumBounceRatio: 0.5,
   },
   resistanceRatio: 1,
   on: {
@@ -128,7 +132,6 @@ const swiperMain = new Swiper('.swiper.is-main', {
   // hashNavigation: {
   //   watchState: true,
   // },
-
   // history: {
   //   enabled: true,
   //   keepQuery: false,
@@ -137,11 +140,12 @@ const swiperMain = new Swiper('.swiper.is-main', {
   // },
 });
 
-swiperMain.init();
-
 //--> Swiper Sections [Vertical]
 function swiperSection(className) {
   {
+    const slides = document.getElementsByClassName('swiper-slide');
+    const slidesLength = slides.length;
+
     return new Swiper('.swiper.' + className, {
       direction: 'vertical',
       grabCursor: true,
@@ -150,31 +154,50 @@ function swiperSection(className) {
       cubeEffect: { slideShadows: false, shadow: false, shadowScale: 1 },
       creativeEffect: {
         prev: {
-          translate: ['0%', 0, -500],
-          rotate: [60, 0, 0],
-          scale: 0.5,
+          translate: ['0%', '0%', -1000],
+          rotate: [45, 0, 0],
+          scale: 1,
           shadow: false,
         },
         next: {
-          translate: ['0%', '120%', 0],
-          rotate: [-60, 0, 0],
+          translate: ['0%', '100%', -50],
+          rotate: [-90, 0, 0],
           scale: 0.5,
           shadow: false,
         },
         limitProgress: 5,
       },
-      speed: 900,
-      mousewheel: { enabled: true },
+      speed: 1000,
+      mousewheel: { enabled: true, releaseOnEdges: false },
+      touchReleaseOnEdges: true,
       parallax: { enabled: true },
       watchSlidesProgress: true,
-      observer: true,
-      observeParents: true,
       threshold: 5,
       slidesPerGroupAuto: false,
+
+      on: {
+        slideChange: (swiper) => {
+          const { offsetTop } = swiper.el;
+          window.scrollY !== offsetTop &&
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth',
+            });
+        },
+        slideChangeTransitionEnd: (swiper) => {
+          const activeIndex = swiper.activeIndex;
+          swiper.params.mousewheel.releaseOnEdges =
+            activeIndex === 0 || activeIndex === slidesLength - 1;
+        },
+      },
+
+      observer: false, // check if needed!
+      observeParents: false, // check if needed!
 
       keyboard: { enabled: true },
       mousewheel: { enabled: true },
       slidesPerGroupAuto: false,
+      lazy: { enabled: false },
 
       resistanceRatio: 0.5,
       pagination: {
@@ -210,47 +233,29 @@ const swiperCarousel = new Swiper('.swiper.is-carousel', {
   },
   keyboard: { enabled: true },
   watchSlidesProgress: true,
-  observer: true,
+  observer: false,
   observeParents: true,
   threshold: 5,
 });
 
+//--> Swiper Nav Goto
+function goToSlide() {
+  const navLinks = navLink.forEach((link, index) => {
+    link.addEventListener('click', () => {
+      swiperMain.slideToLoop(index, 1000);
+    });
+  });
+}
+
+goToSlide();
+
+//--> Contact Button
+function contactButton() {
+  buttonContact.addEventListener('click', () => {
+    swiperMain.slideToLoop(4, 1000);
+  });
+}
+
+contactButton();
+
 //--GSAP
-// const toggleMenu = function () {
-//   const nav = gsap.timeline({ paused: true });
-//   gsap.set(navMenu, { display: 'none' });
-//   nav
-//     .fromTo(
-//       navContainer,
-//       { width: '4rem', height: '4rem' },
-//       {
-//         width: '23rem',
-//         height: '26rem',
-//         duration: 0.25,
-//         ease: 'sine.in',
-//       }
-//     )
-//     .set(navMenu, { display: 'flex' }, '>')
-//     .fromTo(
-//       navMenu,
-//       { opacity: 0, yPercent: 15 },
-//       {
-//         opacity: 1,
-//         yPercent: 0,
-//         duration: 0.5,
-//         ease: 'none',
-//       },
-//       '<'
-//     );
-
-//   let isActive = false;
-
-//   navButton.addEventListener('click', () => {
-//     isActive = !isActive;
-//     if (isActive) {
-//       nav.play();
-//     } else {
-//       nav.reverse();
-//     }
-//   });
-// };
