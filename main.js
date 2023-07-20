@@ -1,5 +1,5 @@
 /**
- * @version 0.3.5
+ * @version 0.4
  * @author davron-design.com
  */
 
@@ -263,40 +263,53 @@ function modalScroll() {
 
   scrollContainer.forEach((container) => {
     container.addEventListener('mouseenter', () => {
-      swiperService.mousewheel.disable(); // Disable mousewheel control when the cursor enters the scroll container
+      swiperService.disable(); // Disable mousewheel control when the cursor enters the scroll container
     });
     container.addEventListener('mouseleave', () => {
-      swiperService.mousewheel.enable(); // Enable mousewheel control when the cursor leaves the scroll container
+      swiperService.enable(); // Enable mousewheel control when the cursor leaves the scroll container
     });
   });
 }
 
 modalScroll();
 
-function modalTouch() {
-  const scrollContainer = document.querySelectorAll('.swiper-slide-service');
+//--> Service Details Modal Mobile
+function modalScrollMobile() {
+  const scrollContainer = document.querySelectorAll(
+    '.swiper-slide-service.no-scrollbar.is-mobile-modal'
+  );
+  const buttonView = document.querySelectorAll('.button-view.is-service');
+  const closeButton = document.querySelectorAll('.modal-card.is-close-button');
 
-  let isTouching = false;
+  buttonView.forEach((button) => {
+    button.addEventListener('click', () => {
+      swiperService.disable();
+    });
+  });
+
+  closeButton.forEach((button) => {
+    button.addEventListener('click', () => {
+      swiperService.enable();
+    });
+  });
 
   scrollContainer.forEach((container) => {
-    container.addEventListener('touchstart', () => {
-      isTouching = true;
-      swiperService.mousewheel.disable(); // Disable mousewheel control when touching the scroll container
-    });
-
-    container.addEventListener('touchmove', () => {
-      if (isTouching) {
-        swiperService.mousewheel.disable(); // Disable mousewheel control while scrolling inside the scroll container
+    container.addEventListener('click', (e) => {
+      if (e.target === container) {
+        closeButton.forEach((button) => {
+          button.click();
+        });
       }
     });
+  });
 
-    container.addEventListener('touchend', () => {
-      isTouching = false;
-      swiperService.mousewheel.enable(); // Enable mousewheel control when touch ends
-    });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeButton.forEach((button) => {
+        button.click();
+      });
+    }
   });
 }
 
-modalTouch();
-
-//--GSAP
+modalScrollMobile();
