@@ -1,5 +1,5 @@
 /**
- * @version 0.3
+ * @version 0.3.5
  * @author davron-design.com
  */
 
@@ -272,5 +272,31 @@ function modalScroll() {
 }
 
 modalScroll();
+
+function modalTouch() {
+  const scrollContainer = document.querySelectorAll('.swiper-slide-service');
+
+  let isTouching = false;
+
+  scrollContainer.forEach((container) => {
+    container.addEventListener('touchstart', () => {
+      isTouching = true;
+      swiperService.mousewheel.disable(); // Disable mousewheel control when touching the scroll container
+    });
+
+    container.addEventListener('touchmove', () => {
+      if (isTouching) {
+        swiperService.mousewheel.disable(); // Disable mousewheel control while scrolling inside the scroll container
+      }
+    });
+
+    container.addEventListener('touchend', () => {
+      isTouching = false;
+      swiperService.mousewheel.enable(); // Enable mousewheel control when touch ends
+    });
+  });
+}
+
+modalTouch();
 
 //--GSAP
