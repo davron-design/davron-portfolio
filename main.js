@@ -147,6 +147,7 @@ function swiperSection(className) {
     const slidesLength = slides.length;
 
     return new Swiper('.swiper.' + className, {
+      nested: true,
       direction: 'vertical',
       grabCursor: true,
       effect: 'creative',
@@ -192,7 +193,7 @@ function swiperSection(className) {
       },
 
       observer: false, // check if needed!
-      observeParents: false, // check if needed!
+      observeParents: true, // check if needed!
 
       keyboard: { enabled: true },
       mousewheel: { enabled: true },
@@ -215,15 +216,13 @@ const swiperAbout = swiperSection('is-about');
 const swiperWork = swiperSection('is-work');
 const swiperService = swiperSection('is-service');
 
-//--> Swiper Embedded
+//--> Swiper About Nested
 const swiperCarousel = new Swiper('.swiper.is-carousel', {
   centeredSlides: true, // Important!
   nested: true, // Important!
   slidesPerView: 'auto',
 
-  // spaceBetween: 16,
-  // autoHeight: true,
-  // grabCursor: true,
+  grabCursor: false,
   slideToClickedSlide: true,
   freeMode: {
     enabled: true,
@@ -257,5 +256,21 @@ function contactButton() {
 }
 
 contactButton();
+
+//--> Service Details Modal
+function modalScroll() {
+  const scrollContainer = document.querySelectorAll('.swiper-slide-service');
+
+  scrollContainer.forEach((container) => {
+    container.addEventListener('mouseenter', () => {
+      swiperService.mousewheel.disable(); // Disable mousewheel control when the cursor enters the scroll container
+    });
+    container.addEventListener('mouseleave', () => {
+      swiperService.mousewheel.enable(); // Enable mousewheel control when the cursor leaves the scroll container
+    });
+  });
+}
+
+modalScroll();
 
 //--GSAP
