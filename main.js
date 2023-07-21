@@ -12,6 +12,7 @@ const bgBrand = document.querySelector('#bg-brand');
 const brandLogo = document.querySelector('#brand-logo');
 const brandLink = document.querySelector('#brand-link');
 const buttonContact = document.querySelector('.button-contact');
+const modalContact = document.querySelectorAll('.modal-card.is-contact');
 
 // Nav Selects
 const navLink = document.querySelectorAll('.nav-link');
@@ -226,11 +227,10 @@ const swiperCarousel = new Swiper('.swiper.is-carousel', {
   slideToClickedSlide: true,
   freeMode: {
     enabled: true,
-    momentum: true,
-    momentumBounce: false,
-    momentumRatio: 0.2,
+    momentumRatio: 0.5,
+    momentumVelocityRatio: 0.5,
+    momentumBounceRatio: 0.5,
   },
-  keyboard: { enabled: true },
   watchSlidesProgress: true,
   observer: false,
   observeParents: true,
@@ -253,6 +253,12 @@ function contactButton() {
   buttonContact.addEventListener('click', () => {
     swiperMain.slideToLoop(4, 1000);
   });
+
+  modalContact.forEach((button) => {
+    button.addEventListener('click', () => {
+      swiperMain.slideToLoop(4, 1000);
+    });
+  });
 }
 
 contactButton();
@@ -263,10 +269,10 @@ function modalScroll() {
 
   scrollContainer.forEach((container) => {
     container.addEventListener('mouseenter', () => {
-      swiperService.disable(); // Disable mousewheel control when the cursor enters the scroll container
+      swiperService.disable();
     });
     container.addEventListener('mouseleave', () => {
-      swiperService.enable(); // Enable mousewheel control when the cursor leaves the scroll container
+      swiperService.enable();
     });
   });
 }
