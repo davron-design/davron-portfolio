@@ -1,5 +1,6 @@
 /**
- * @version 0.5
+ * @description Backup file with 3D transition effects that slow down peformance on mobile
+ * @version 0.4.5
  * @author davron-design.com
  */
 
@@ -74,17 +75,14 @@ const classMap = {
 };
 
 const swiperMain = new Swiper('.swiper.is-main', {
-  // General Parameters
-  direction: 'horizontal',
-  watchSlidesProgress: true,
-  resistanceRatio: 1,
-
-  // Navigation Parameters
-  keyboard: { enabled: true },
+  mousewheel: { enabled: false },
   threshold: 5,
+  observer: false,
+  observeParents: false,
+  loop: true,
+  watchSlidesProgress: true,
   grabCursor: true,
 
-  // Animation Parameters
   effect: 'creative',
   slidesPerGroupAuto: false,
   creativeEffect: {
@@ -98,7 +96,21 @@ const swiperMain = new Swiper('.swiper.is-main', {
   },
   speed: 800,
 
-  // Color Change on Slide Change
+  // autoplay: {
+  //   pauseOnMouseEnter: true,
+  //   delay: 5000,
+  //   enabled: true,
+  // },
+
+  keyboard: { enabled: true },
+  freeMode: {
+    sticky: true,
+    enabled: true,
+    momentumRatio: 0.5,
+    momentumVelocityRatio: 1,
+    momentumBounceRatio: 0.5,
+  },
+  resistanceRatio: 1,
   on: {
     slideChange: function () {
       const realIndex = swiperMain.realIndex;
@@ -137,48 +149,66 @@ function swiperSection(className) {
     const slidesLength = slides.length;
 
     return new Swiper('.swiper.' + className, {
-      // General Parameters
       nested: true,
       direction: 'vertical',
-      watchSlidesProgress: true,
-      observer: true,
-      observeParents: true,
-      touchReleaseOnEdges: true,
-      slidesPerGroupAuto: false,
-      resistanceRatio: 0.7,
-
-      // Navigation Parameters
-      mousewheel: { enabled: true },
-      keyboard: { enabled: true },
-      threshold: 5,
-
-      // Animation Parameters
+      grabCursor: true,
       effect: 'creative',
+      coverflowEffect: { depth: 1000, rotate: 90, scale: 1.25, modifier: 1.3 },
+      cubeEffect: { slideShadows: false, shadow: false, shadowScale: 1 },
       creativeEffect: {
         prev: {
           translate: ['0%', '0%', -1000],
           rotate: [45, 0, 0],
           scale: 1,
+          shadow: false,
         },
         next: {
           translate: ['0%', '100%', -50],
           rotate: [-90, 0, 0],
           scale: 0.5,
+          shadow: false,
         },
         limitProgress: 5,
       },
-      parallax: { enabled: true },
       speed: 1000,
+      mousewheel: { enabled: true, releaseOnEdges: false },
+      touchReleaseOnEdges: true,
+      parallax: { enabled: true },
+      watchSlidesProgress: true,
+      threshold: 5,
+      slidesPerGroupAuto: false,
 
-      // Pagination Parameters
+      on: {
+        slideChange: (swiper) => {
+          const { offsetTop } = swiper.el;
+          window.scrollY !== offsetTop &&
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth',
+            });
+        },
+        slideChangeTransitionEnd: (swiper) => {
+          const activeIndex = swiper.activeIndex;
+          swiper.params.mousewheel.releaseOnEdges =
+            activeIndex === 0 || activeIndex === slidesLength - 1;
+        },
+      },
+
+      observer: false, // check if needed!
+      observeParents: true, // check if needed!
+
+      keyboard: { enabled: true },
+      mousewheel: { enabled: true },
+      slidesPerGroupAuto: false,
+      lazy: { enabled: false },
+
+      resistanceRatio: 0.5,
       pagination: {
         type: 'progressbar',
         clickable: true,
         dynamicBullets: true,
         el: '.swiper-pagination.' + className,
       },
-
-      // Smooth Slide Change
     });
   }
 }
@@ -207,8 +237,6 @@ const swiperCarousel = new Swiper('.swiper.is-carousel', {
   observeParents: true,
   threshold: 5,
 });
-
-//--COMP Functions
 
 //--> Swiper Nav Goto
 function goToSlide() {
