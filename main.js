@@ -85,18 +85,8 @@ const swiperMain = new Swiper('.swiper.is-main', {
   grabCursor: true,
 
   // Animation Parameters
-  effect: 'creative',
-  slidesPerGroupAuto: false,
-  creativeEffect: {
-    next: { shadow: false, translate: ['100%', 0, -500] },
-    prev: {
-      rotate: [0, 40, 0],
-      shadow: false,
-      translate: ['-100%', '0%', -2000],
-    },
-    limitProgress: 5,
-  },
-  speed: 800,
+  effect: 'slide',
+  speed: 1000,
 
   // Color Change on Slide Change
   on: {
