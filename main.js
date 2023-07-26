@@ -1,5 +1,5 @@
 /**
- * @version 0.5
+ * @version 0.1
  * @author davron-design.com
  */
 
@@ -10,275 +10,181 @@ console.log('local dev');
 // Selects
 const bgBrand = document.querySelector('#bg-brand');
 const brandLogo = document.querySelector('#brand-logo');
+const brandSection = document.querySelector('#brand-section');
 const brandLink = document.querySelector('#brand-link');
 const buttonContact = document.querySelector('.button-contact');
 const modalContact = document.querySelectorAll('.modal-card.is-contact');
+const headingInsert = document.querySelector('[dn-heading]');
 
-// Nav Selects
+// Sections
+const sectionsArr = gsap.utils.toArray('[dn-section]');
+const sectionHome = document.querySelector('.home_component');
+const sectionAbout = document.querySelector('.about_component');
+const sectionWorks = document.querySelector('.work_component');
+const sectionServices = document.querySelector('.services_component');
+const footer = document.querySelector('.footer');
+
+// Links
 const navLink = document.querySelectorAll('.nav-link');
+const footerLinks = document.querySelectorAll('[dn-footer-link]');
 
-//--SWIPER
-
-//--> Swiper Main [Horizontal]
-const classRemover = function () {
-  const classesToRemove = [
-    'text-color-main',
-    'text-color-a1',
-    'text-color-a2',
-    'text-color-a3',
-    'text-color-a4',
-    'text-color-stroke-main',
-    'text-color-stroke-a1',
-    'text-color-stroke-a2',
-    'text-color-stroke-a3',
-    'text-color-stroke-a4',
-    'is-main',
-    'is-about',
-    'is-work',
-    'is-service',
-    'is-contact',
-    'is-active',
-  ];
-
-  brandLogo.classList.remove(...classesToRemove);
-  bgBrand.classList.remove(...classesToRemove);
-  buttonContact.classList.remove(...classesToRemove);
-};
-
+//--COMP
 const classMap = {
   0: {
     textColor: 'text-color-main',
-    strokeColor: 'text-color-stroke-main',
     contactClass: 'is-main',
   },
   1: {
     textColor: 'text-color-a1',
-    strokeColor: 'text-color-stroke-a1',
     contactClass: 'is-about',
   },
   2: {
     textColor: 'text-color-a2',
-    strokeColor: 'text-color-stroke-a2',
-    contactClass: 'is-work',
+    contactClass: 'is-works',
   },
   3: {
     textColor: 'text-color-a3',
-    strokeColor: 'text-color-stroke-a3',
     contactClass: 'is-service',
   },
   4: {
     textColor: 'text-color-a4',
-    strokeColor: 'text-color-stroke-a4',
     contactClass: 'is-contact',
   },
 };
 
-const swiperMain = new Swiper('.swiper.is-main', {
-  // General Parameters
-  direction: 'horizontal',
-  watchSlidesProgress: true,
-  resistanceRatio: 1,
+//--LENIS
+// Lenis Selectors
+const lenisStart = document.querySelectorAll('[data-lenis-start]');
+const lenisStop = document.querySelectorAll('[data-lenis-stop]');
+const lenisToggle = document.querySelectorAll('[data-lenis-toggle]');
 
-  // Navigation Parameters
-  keyboard: { enabled: true },
-  threshold: 5,
-  grabCursor: true,
-
-  // Animation Parameters
-  effect: 'slide',
-  speed: 1000,
-
-  // Color Change on Slide Change
-  on: {
-    slideChange: function () {
-      const realIndex = swiperMain.realIndex;
-      classRemover();
-
-      if (classMap.hasOwnProperty(realIndex)) {
-        const { textColor, strokeColor, contactClass } = classMap[realIndex];
-        brandLogo.classList.add(textColor);
-        bgBrand.classList.add(strokeColor);
-        buttonContact.classList.add(contactClass);
-      }
-
-      if (realIndex === 0 || realIndex === 3) {
-        brandLink.classList.remove('is-white');
-      } else {
-        brandLink.classList.add('is-white');
-      }
-    },
-  },
-
-  // hashNavigation: {
-  //   watchState: true,
-  // },
-  // history: {
-  //   enabled: true,
-  //   keepQuery: false,
-  //   replaceState: true,
-  //   key: '',
-  // },
+//--> Lenis Init
+const lenis = new Lenis({
+  lerp: 0.1,
+  wheelMultiplier: 1.2,
+  infinite: false,
+  gestureOrientation: 'vertical',
+  normalizeWheel: false,
+  smoothTouch: false,
 });
 
-//--> Swiper Sections [Vertical]
-function swiperSection(className) {
-  {
-    const slides = document.getElementsByClassName('swiper-slide');
-    const slidesLength = slides.length;
-
-    return new Swiper('.swiper.' + className, {
-      // General Parameters
-      nested: true,
-      direction: 'vertical',
-      watchSlidesProgress: true,
-      observer: true,
-      observeParents: true,
-      touchReleaseOnEdges: true,
-      slidesPerGroupAuto: false,
-      resistanceRatio: 0.7,
-
-      // Navigation Parameters
-      mousewheel: { enabled: true },
-      keyboard: { enabled: true },
-      threshold: 5,
-
-      // Animation Parameters
-      effect: 'creative',
-      creativeEffect: {
-        prev: {
-          translate: ['0%', '0%', -1000],
-          rotate: [45, 0, 0],
-          scale: 1,
-        },
-        next: {
-          translate: ['0%', '100%', -50],
-          rotate: [-90, 0, 0],
-          scale: 0.5,
-        },
-        limitProgress: 5,
-      },
-      parallax: { enabled: true },
-      speed: 1000,
-
-      // Pagination Parameters
-      pagination: {
-        type: 'progressbar',
-        clickable: true,
-        dynamicBullets: true,
-        el: '.swiper-pagination.' + className,
-      },
-
-      // Smooth Slide Change
-    });
-  }
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
 }
+requestAnimationFrame(raf);
 
-const swiperHome = swiperSection('is-home');
-const swiperAbout = swiperSection('is-about');
-const swiperWork = swiperSection('is-work');
-const swiperService = swiperSection('is-service');
-
-//--> Swiper About Nested
-const swiperCarousel = new Swiper('.swiper.is-carousel', {
-  centeredSlides: true, // Important!
-  nested: true, // Important!
-  slidesPerView: 'auto',
-
-  grabCursor: false,
-  slideToClickedSlide: true,
-  freeMode: {
-    enabled: true,
-    momentumRatio: 0.5,
-    momentumVelocityRatio: 0.5,
-    momentumBounceRatio: 0.5,
-  },
-  watchSlidesProgress: true,
-  observer: false,
-  observeParents: true,
-  threshold: 5,
+// Lenis Event Listeners
+lenisStart.forEach((e) => {
+  e.addEventListener('click', () => {
+    lenis.start();
+  });
 });
 
-//--COMP Functions
-
-//--> Swiper Nav Goto
-function goToSlide() {
-  const navLinks = navLink.forEach((link, index) => {
-    link.addEventListener('click', () => {
-      swiperMain.slideToLoop(index, 1000);
-    });
+lenisStop.forEach((e) => {
+  e.addEventListener('click', () => {
+    lenis.stop();
   });
-}
+});
 
-goToSlide();
-
-//--> Contact Button
-function contactButton() {
-  buttonContact.addEventListener('click', () => {
-    swiperMain.slideToLoop(4, 1000);
-  });
-
-  modalContact.forEach((button) => {
-    button.addEventListener('click', () => {
-      swiperMain.slideToLoop(4, 1000);
-    });
-  });
-}
-
-contactButton();
-
-//--> Service Details Modal
-function modalScroll() {
-  const scrollContainer = document.querySelectorAll('.swiper-slide-service');
-
-  scrollContainer.forEach((container) => {
-    container.addEventListener('mouseenter', () => {
-      swiperService.disable();
-    });
-    container.addEventListener('mouseleave', () => {
-      swiperService.enable();
-    });
-  });
-}
-
-modalScroll();
-
-//--> Service Details Modal Mobile
-function modalScrollMobile() {
-  const scrollContainer = document.querySelectorAll(
-    '.swiper-slide-service.no-scrollbar.is-mobile-modal'
-  );
-  const buttonView = document.querySelectorAll('.button-view.is-service');
-  const closeButton = document.querySelectorAll('.modal-card.is-close-button');
-
-  buttonView.forEach((button) => {
-    button.addEventListener('click', () => {
-      swiperService.disable();
-    });
-  });
-
-  closeButton.forEach((button) => {
-    button.addEventListener('click', () => {
-      swiperService.enable();
-    });
-  });
-
-  scrollContainer.forEach((container) => {
-    container.addEventListener('click', (e) => {
-      if (e.target === container) {
-        closeButton.forEach((button) => {
-          button.click();
-        });
-      }
-    });
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeButton.forEach((button) => {
-        button.click();
-      });
+lenisToggle.forEach((e) => {
+  e.addEventListener('click', () => {
+    e.classList.toggle('stop-scroll');
+    if (e.classList.contains('stop-scroll')) {
+      lenis.stop();
+    } else {
+      lenis.start();
     }
   });
+});
+
+// Lenis ScrollTrigger Init
+function connectToScrollTrigger() {
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
 }
 
-modalScrollMobile();
+connectToScrollTrigger();
+
+//--SWIPER
+function createSwiper(className) {
+  return new Swiper(`.swiper.${className}`, {
+    grabCursor: true,
+    cssMode: false,
+    navigation: {
+      prevEl: `.swiper-button-prev.${className}`,
+      nextEl: `.swiper-button-next.${className}`,
+    },
+  });
+}
+
+createSwiper('is-about');
+createSwiper('is-works');
+createSwiper('is-services');
+
+//--GSAP
+gsap.registerPlugin(ScrollTrigger);
+
+//--> Scrolling Animations
+gsap.fromTo(
+  sectionHome.parentNode,
+  { paddingLeft: '0rem', paddingRight: '0rem' },
+  {
+    paddingLeft: '3rem',
+    paddingRight: '3rem',
+    scrollTrigger: {
+      trigger: sectionHome,
+      start: 'top',
+      end: 'bottom center',
+      // markers: true,
+      scrub: 1.5,
+    },
+  }
+);
+
+sectionsArr.forEach((e, i) => {
+  gsap.fromTo(
+    e,
+    { borderRadius: '2rem', scale: 0.8 },
+    {
+      borderRadius: '0rem',
+      scale: 1,
+      scrollTrigger: {
+        trigger: e,
+        start: 'top',
+        end: 'bottom center',
+        // markers: true,
+        scrub: 1.5,
+      },
+    }
+  );
+});
+
+// gsap.to(headingInsert, {
+//   yPercent: 15,
+//   scrollTrigger: {
+//     trigger: 'body',
+//     start: 'top ',
+//     end: 'bottom center',
+//     scrub: 1,
+//   },
+// });
+
+//--> Scroll to section
+
+//--> Footer Fade In
+gsap.fromTo(
+  footer,
+  { opacity: 0 },
+  {
+    opacity: 1,
+    scrollTrigger: {
+      trigger: sectionServices,
+      start: 'bottom bottom',
+      end: 'bottom bottom',
+      scrub: true,
+    },
+  }
+);
