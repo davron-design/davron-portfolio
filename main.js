@@ -1,5 +1,5 @@
 /**
- * @version 0.1
+ * @version 0.2
  * @author davron-design.com
  */
 
@@ -14,7 +14,10 @@ const brandSection = document.querySelector('#brand-section');
 const brandLink = document.querySelector('#brand-link');
 const buttonContact = document.querySelector('.button-contact');
 const modalContact = document.querySelectorAll('.modal-card.is-contact');
-const headingInsert = document.querySelector('[dn-heading]');
+
+// Heading Selects
+const headingContent = document.querySelector('[dn-heading="content"]');
+const headingContact = document.querySelector('.heading-contact');
 
 // Sections
 const sectionsArr = gsap.utils.toArray('[dn-section]');
@@ -128,63 +131,142 @@ createSwiper('is-services');
 gsap.registerPlugin(ScrollTrigger);
 
 //--> Scrolling Animations
-gsap.fromTo(
-  sectionHome.parentNode,
-  { paddingLeft: '0rem', paddingRight: '0rem' },
-  {
-    paddingLeft: '3rem',
-    paddingRight: '3rem',
-    scrollTrigger: {
-      trigger: sectionHome,
-      start: 'top',
-      end: 'bottom center',
-      // markers: true,
-      scrub: 1.5,
-    },
-  }
-);
 
-sectionsArr.forEach((e, i) => {
-  gsap.fromTo(
-    e,
-    { borderRadius: '2rem', scale: 0.8 },
-    {
-      borderRadius: '0rem',
-      scale: 1,
+// Header Section
+function headerAnim() {
+  gsap
+    .timeline({
       scrollTrigger: {
-        trigger: e,
+        trigger: sectionHome,
         start: 'top',
         end: 'bottom center',
         // markers: true,
         scrub: 1.5,
       },
-    }
-  );
-});
+    })
+    .fromTo(
+      sectionHome.parentNode,
+      {
+        paddingLeft: '0rem',
+        paddingRight: '0rem',
+        yPercent: 0,
+      },
+      {
+        paddingLeft: '3rem',
+        paddingRight: '3rem',
+        yPercent: 5,
+      }
+    )
+    .fromTo(
+      sectionHome,
+      {
+        borderRadius: '0rem',
+      },
+      {
+        borderRadius: '2rem',
+      },
+      '<'
+    )
+    .fromTo(
+      '.heading-insert',
+      {
+        borderTopLeftRadius: '2rem',
+        borderTopRightRadius: '2rem',
+      },
+      {
+        borderTopLeftRadius: '0rem',
+        borderTopRightRadius: '0rem',
+      },
+      '>'
+    );
+}
 
-// gsap.to(headingInsert, {
-//   yPercent: 15,
-//   scrollTrigger: {
-//     trigger: 'body',
-//     start: 'top ',
-//     end: 'bottom center',
-//     scrub: 1,
-//   },
-// });
+headerAnim();
 
-//--> Scroll to section
+// Sections
+function sectionsAnim() {
+  sectionsArr.forEach((e, i) => {
+    gsap.fromTo(
+      e,
+      { borderRadius: '2rem', scale: 0.8 },
+      {
+        borderRadius: '0rem',
+        scale: 1,
+        scrollTrigger: {
+          trigger: e,
+          start: 'top',
+          end: 'bottom center',
+          // markers: true,
+          scrub: 1.5,
+        },
+      }
+    );
+  });
+}
 
-//--> Footer Fade In
-gsap.fromTo(
-  footer,
-  { opacity: 0 },
-  {
-    opacity: 1,
+sectionsAnim();
+
+//--> Heading Animations
+function headingAnim() {
+  const headings = gsap.utils.toArray(headingContent.children);
+
+  headings.forEach((e, i) => {
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.heading-insert',
+        start: 'top center',
+        // end: 'bottom top-=100%',
+        markers: true,
+        scrub: 1,
+        ease: 'linear',
+      },
+    });
+
+    const scaleVar = 1;
+    tl.fromTo(
+      e,
+      { opacity: 0, yPercent: 0, scale: scaleVar },
+      {
+        opacity: 1,
+        yPercent: -25 * i,
+        scale: scaleVar + 0.1 * i,
+        delay: 0.3 * i,
+      }
+    ).to(e, { filter: `blur(${(headings.length - i - 1) * 0.5}rem)` });
+  });
+
+  let tlEnd = gsap.timeline({
     scrollTrigger: {
       trigger: sectionServices,
-      start: 'bottom bottom',
+      start: 'top top',
       end: 'bottom bottom',
-      scrub: true,
+      scrub: 1,
+      ease: 'none',
     },
-  }
-);
+  });
+
+  tlEnd
+    .fromTo(headingContent, { display: 'flex' }, { display: 'none' })
+    .fromTo(headingContact, { display: 'none' }, { display: 'flex' });
+}
+
+headingAnim();
+
+//--> Footer Fade In
+function footerFadeIn() {
+  gsap.fromTo(
+    footer,
+    { opacity: 0 },
+    {
+      opacity: 1,
+      scrollTrigger: {
+        trigger: sectionServices,
+        start: 'bottom bottom',
+        end: 'bottom bottom',
+        scrub: true,
+      },
+    }
+  );
+}
+
+footerFadeIn();
