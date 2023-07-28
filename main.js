@@ -1,18 +1,25 @@
 /**
- * @version 0.2
+ * @version 0.2.5
  * @author davron-design.com
  */
 
 'use strict';
 console.log('local dev');
 
+/**
+TODO List
+- Optimize for mobile!
+- Refine Swiper animations
+- Create horizontal slider inside swiper for about section
+- Create Modal Animation for services
+- Create Barba transitions
+
+- Create Gallery
+- Create Stills
+ */
+
 //--GLOBAL
 // Selects
-const bgBrand = document.querySelector('#bg-brand');
-const brandLogo = document.querySelector('#brand-logo');
-const brandSection = document.querySelector('#brand-section');
-const brandLink = document.querySelector('#brand-link');
-const buttonContact = document.querySelector('.button-contact');
 const buttonTop = document.querySelector('.button-top');
 const modalContact = document.querySelectorAll('.modal-card.is-contact');
 
@@ -42,7 +49,7 @@ buttonTop.addEventListener('click', (e) => {
     behavior: 'smooth',
   });
 });
-/*
+
 window.addEventListener('load', () => {
   window.scroll({
     top: 0,
@@ -51,7 +58,21 @@ window.addEventListener('load', () => {
   });
 });
 
-*/
+// document.addEventListener('DOMContentLoaded', () => {
+//   footerLinks.forEach((link) => {
+//     link.addEventListener('click', () => {
+//       setTimeout(removeHash);
+//     });
+//   });
+// });
+
+// function removeHash() {
+//   history.replaceState(
+//     null,
+//     document.title,
+//     `${window.location.origin}${window.location.pathname}${window.location.search}`
+//   );
+// }
 
 //--LENIS
 // Lenis Selectors
@@ -112,8 +133,13 @@ connectToScrollTrigger();
 //--SWIPER
 function createSwiper(className) {
   return new Swiper(`.swiper.${className}`, {
-    grabCursor: true,
+    // General Parameters
+    resistanceRatio: 0,
     cssMode: false,
+
+    // Navigation
+    grabCursor: true,
+    keyboard: { enabled: true },
     navigation: {
       prevEl: `.swiper-button-prev.${className}`,
       nextEl: `.swiper-button-next.${className}`,
@@ -127,56 +153,6 @@ createSwiper('is-services');
 
 //--GSAP
 gsap.registerPlugin(ScrollTrigger);
-
-//--COMP
-const classMap = {
-  0: {
-    textColor: 'text-color-main',
-    contactClass: 'is-main',
-    brandLinkClass: 'is-black',
-  },
-  1: {
-    textColor: 'text-color-a1',
-    contactClass: 'is-about',
-    brandLinkClass: 'is-white',
-  },
-  2: {
-    textColor: 'text-color-a2',
-    contactClass: 'is-works',
-    brandLinkClass: 'is-white',
-  },
-  3: {
-    textColor: 'text-color-a3',
-    contactClass: 'is-service',
-    brandLinkClass: 'is-black',
-  },
-  4: {
-    textColor: 'text-color-a4',
-    contactClass: 'is-contact',
-    brandLinkClass: 'is-white',
-  },
-};
-
-const classRemover = function () {
-  const classesToRemove = [
-    'text-color-main',
-    'text-color-a1',
-    'text-color-a2',
-    'text-color-a3',
-    'text-color-a4',
-    'is-main',
-    'is-about',
-    'is-works',
-    'is-service',
-    'is-contact',
-    'is-white',
-    'is-black',
-  ];
-
-  brandLogo.classList.remove(...classesToRemove);
-  buttonContact.classList.remove(...classesToRemove);
-  brandLink.classList.remove(...classesToRemove);
-};
 
 //--> Scrolling Animations
 
@@ -297,7 +273,7 @@ function headingAnim() {
 
 headingAnim();
 
-//--> Footer Fade In
+//--> Footer Reveal
 function footerFadeIn() {
   gsap.fromTo(
     footer,
@@ -315,64 +291,3 @@ function footerFadeIn() {
 }
 
 footerFadeIn();
-
-//--> Nav Color Change
-function navColorChange() {
-  function toggleClasses(index) {
-    classRemover();
-    const { textColor, contactClass, brandLinkClass } = classMap[index];
-    brandLogo.classList.add(textColor);
-    buttonContact.classList.add(contactClass);
-    brandLink.classList.add(brandLinkClass);
-  }
-
-  ScrollTrigger.create({
-    trigger: homeComponent,
-    start: 'top center',
-    end: 'bottom center',
-    // markers: true,
-    onEnterBack: () => toggleClasses(0),
-    onEnter: () => toggleClasses(0),
-    onLeaveBack: () => toggleClasses(0),
-    onLeave: () => toggleClasses(0),
-  });
-
-  ScrollTrigger.create({
-    trigger: homeComponent,
-    start: 'bottom center',
-    end: 'bottom center',
-    onEnterBack: () => toggleClasses(1),
-    onEnter: () => toggleClasses(1),
-    onLeaveBack: () => toggleClasses(1),
-    onLeave: () => toggleClasses(1),
-  });
-
-  ScrollTrigger.create({
-    trigger: worksComponent,
-    start: 'top center',
-    end: 'bottom center',
-    onEnterBack: () => toggleClasses(2),
-    onEnter: () => toggleClasses(2),
-    onLeaveBack: () => toggleClasses(2),
-    onLeave: () => toggleClasses(2),
-  });
-
-  ScrollTrigger.create({
-    trigger: servicesComponent,
-    start: 'top center',
-    end: 'bottom center',
-    onEnterBack: () => toggleClasses(3),
-    onEnter: () => toggleClasses(3),
-    onLeaveBack: () => toggleClasses(3),
-    onLeave: () => toggleClasses(3),
-  });
-
-  ScrollTrigger.create({
-    trigger: '.main-wrapper',
-    start: 'bottom center',
-    onEnterBack: () => toggleClasses(4),
-    onEnter: () => toggleClasses(4),
-    onLeaveBack: () => toggleClasses(4),
-    onLeave: () => toggleClasses(4),
-  });
-}
