@@ -129,8 +129,6 @@ connectToScrollTrigger();
 function createSwiper(className) {
   return new Swiper(`.swiper.${className}`, {
     // General Parameters
-    resistanceRatio: 0,
-    cssMode: false,
     speed: 1000,
     threshold: 5,
     watchSlidesProgress: true,
@@ -143,13 +141,9 @@ function createSwiper(className) {
     loop: true,
 
     // Effects
+    modules: [EffectTinder],
     parallax: { enabled: true },
-    effect: 'cards',
-    creativeEffect: {
-      next: { shadow: true },
-      prev: { shadow: true },
-      limitProgress: 5,
-    },
+    effect: 'tinder',
   });
 }
 
@@ -303,6 +297,15 @@ footerFadeIn();
 function modalCloser() {
   const modalComponent = document.querySelectorAll('.modal-component');
   const closeButton = document.querySelectorAll('.modal-card.is-close-button');
+  const buttonView = document.querySelectorAll('.button-view');
+
+  buttonView.forEach((button) => {
+    button.addEventListener('click', () => {
+      modalComponent.forEach((container) => {
+        container.scrollY = 0;
+      });
+    });
+  });
 
   modalComponent.forEach((container) => {
     container.addEventListener('click', (e) => {
