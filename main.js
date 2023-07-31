@@ -1,5 +1,5 @@
 /**
- * @version 0.2.5
+ * @version 0.5
  * @author davron-design.com
  */
 
@@ -9,10 +9,13 @@ console.log('local dev');
 /**
 TODO List
 - Optimize for mobile!
-- Refine Swiper animations
-- Create horizontal slider inside swiper for about section
-- Create Modal Animation for services
+- Refine Swiper animations ✅
 - Create Barba transitions
+- Create preLoader animation
+- create header animation video ✅
+- fix anchor links in footer and nav ✅
+- Create horizontal slider inside swiper for about section ✅
+- Create Modal Animation for services ✅
 
 - Create Gallery
 - Create Stills
@@ -40,23 +43,14 @@ const footer = document.querySelector('.footer');
 const navLink = document.querySelectorAll('.nav-link');
 const footerLinks = document.querySelectorAll('[dn-footer-link]');
 
-//--COMP Back to top button
-buttonTop.addEventListener('click', (e) => {
-  e.preventDefault();
-  window.scrollTo({
-    top: 0,
-    left: 0,
-    behavior: 'smooth',
-  });
-});
-
-window.addEventListener('load', () => {
-  window.scroll({
-    top: 0,
-    left: 0,
-    behavior: 'smooth',
-  });
-});
+//--COMP Back to top on load
+// window.addEventListener('load', () => {
+//   window.scroll({
+//     top: 0,
+//     left: 0,
+//     behavior: 'smooth',
+//   });
+// });
 
 // document.addEventListener('DOMContentLoaded', () => {
 //   footerLinks.forEach((link) => {
@@ -126,6 +120,7 @@ function connectToScrollTrigger() {
   gsap.ticker.add((time) => {
     lenis.raf(time * 1000);
   });
+  gsap.ticker.lagSmoothing(0);
 }
 
 connectToScrollTrigger();
@@ -136,13 +131,24 @@ function createSwiper(className) {
     // General Parameters
     resistanceRatio: 0,
     cssMode: false,
+    speed: 1000,
+    threshold: 5,
+    watchSlidesProgress: true,
+    slidesPerGroupAuto: false,
 
     // Navigation
     grabCursor: true,
     keyboard: { enabled: true },
-    navigation: {
-      prevEl: `.swiper-button-prev.${className}`,
-      nextEl: `.swiper-button-next.${className}`,
+    pagination: { type: 'progressbar', el: `.swiper-pagination.${className}` },
+    loop: true,
+
+    // Effects
+    parallax: { enabled: true },
+    effect: 'cards',
+    creativeEffect: {
+      next: { shadow: true },
+      prev: { shadow: true },
+      limitProgress: 5,
     },
   });
 }
@@ -154,8 +160,9 @@ createSwiper('is-services');
 //--GSAP
 gsap.registerPlugin(ScrollTrigger);
 
-//--> Scrolling Animations
+//--> Reveal Animation
 
+//--> Scrolling Animations
 // Header Section
 function headerAnim() {
   gsap
@@ -291,3 +298,29 @@ function footerFadeIn() {
 }
 
 footerFadeIn();
+
+//--COMP Close Modal
+function modalCloser() {
+  const modalComponent = document.querySelectorAll('.modal-component');
+  const closeButton = document.querySelectorAll('.modal-card.is-close-button');
+
+  modalComponent.forEach((container) => {
+    container.addEventListener('click', (e) => {
+      if (e.target === container) {
+        closeButton.forEach((button) => {
+          button.click();
+        });
+      }
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeButton.forEach((button) => {
+        button.click();
+      });
+    }
+  });
+}
+
+modalCloser();
