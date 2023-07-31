@@ -9,9 +9,9 @@ console.log('local dev');
 /**
 TODO List
 - Optimize for mobile!
-- Refine Swiper animations ✅
 - Create Barba transitions
 - Create preLoader animation
+- Refine Swiper animations ✅
 - create header animation video ✅
 - fix anchor links in footer and nav ✅
 - Create horizontal slider inside swiper for about section ✅
@@ -44,13 +44,21 @@ const navLink = document.querySelectorAll('.nav-link');
 const footerLinks = document.querySelectorAll('[dn-footer-link]');
 
 //--COMP Back to top on load
-// window.addEventListener('load', () => {
-//   window.scroll({
-//     top: 0,
-//     left: 0,
-//     behavior: 'smooth',
-//   });
-// });
+window.addEventListener('load', () => {
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: 'smooth',
+  });
+});
+
+//--COMP prevent scroll during preloader
+// let timer;
+// lenis.stop();
+// timer = setTimeout(() => {
+//   homeHeaderLoad();
+//   lenis.start();
+// }, 1500);
 
 // document.addEventListener('DOMContentLoaded', () => {
 //   footerLinks.forEach((link) => {
@@ -168,35 +176,14 @@ function headerAnim() {
         scrub: 1.5,
       },
     })
-    .fromTo(
-      homeComponent,
-      {
-        scale: 1,
-        yPercent: 0,
-      },
-      {
-        scale: 0.8,
-        yPercent: 35,
-        ease: 'sine.out',
-      },
-      '<'
-    )
-    .fromTo(
-      homeComponent,
-      {
-        borderRadius: '0rem',
-      },
-      {
-        borderRadius: '2rem',
-      },
-      '<'
-    )
-    .fromTo(
+    .to(homeComponent, {
+      borderRadius: '2rem',
+      scale: 0.8,
+      yPercent: 35,
+      ease: 'sine.out',
+    })
+    .to(
       '.heading-insert',
-      {
-        borderTopLeftRadius: '2rem',
-        borderTopRightRadius: '2rem',
-      },
       {
         borderTopLeftRadius: '0rem',
         borderTopRightRadius: '0rem',
@@ -210,21 +197,17 @@ headerAnim();
 // Sections
 function sectionsAnim() {
   sectionSlide.forEach((e, i) => {
-    gsap.fromTo(
-      e,
-      { borderRadius: '2rem', scale: 0.8 },
-      {
-        borderRadius: '0rem',
-        scale: 1,
-        scrollTrigger: {
-          trigger: e,
-          start: 'top',
-          end: 'bottom center',
-          // markers: true,
-          scrub: 1.5,
-        },
-      }
-    );
+    gsap.to(e, {
+      borderRadius: '0rem',
+      scale: 1,
+      scrollTrigger: {
+        trigger: e,
+        start: 'top',
+        end: 'bottom center',
+        // markers: true,
+        scrub: 1.5,
+      },
+    });
   });
 }
 
@@ -239,22 +222,18 @@ function headingAnim() {
       scrollTrigger: {
         trigger: '.heading-insert',
         start: 'top center',
+        end: 'bottom top',
         scrub: 1,
         ease: 'linear',
       },
     });
 
-    const scaleVar = 1;
-    tl.fromTo(
-      e,
-      { opacity: 0, yPercent: 0, scale: scaleVar },
-      {
-        opacity: 1,
-        yPercent: -25 * i,
-        scale: scaleVar + 0.1 * i,
-        delay: 0.3 * i,
-      }
-    ).to(e, { filter: `blur(${(headings.length - i - 1) * 0.5}rem)` });
+    tl.to(e, {
+      opacity: 1,
+      yPercent: -25 * i,
+      scale: 1 + 0.1 * i,
+      delay: 0.3 * i,
+    }).to(e, { filter: `blur(${(headings.length - i - 1) * 0.5}rem)` });
   });
 
   let tlEnd = gsap.timeline({
@@ -268,27 +247,23 @@ function headingAnim() {
   });
 
   tlEnd
-    .fromTo(headingContent, { display: 'flex' }, { display: 'none' })
-    .fromTo(headingContact, { display: 'none' }, { display: 'flex' });
+    .to(headingContent, { display: 'none' })
+    .to(headingContact, { display: 'flex' });
 }
 
 headingAnim();
 
 //--> Footer Reveal
 function footerFadeIn() {
-  gsap.fromTo(
-    footer,
-    { opacity: 0 },
-    {
-      opacity: 1,
-      scrollTrigger: {
-        trigger: servicesComponent,
-        start: 'bottom bottom',
-        end: 'bottom bottom',
-        scrub: true,
-      },
-    }
-  );
+  gsap.to(footer, {
+    opacity: 1,
+    scrollTrigger: {
+      trigger: servicesComponent,
+      start: 'bottom bottom',
+      end: 'bottom bottom',
+      scrub: true,
+    },
+  });
 }
 
 footerFadeIn();
