@@ -1,5 +1,5 @@
 /**
- * @version 0.5
+ * @version 0.5.5
  * @author davron-design.com
  */
 
@@ -8,9 +8,9 @@ console.log('local dev');
 
 /**
 TODO List
-- Optimize for mobile!
+- Optimize for mobile! 
 - Create Barba transitions
-- Create preLoader animation
+- Create preLoader animation ✅
 - Refine Swiper animations ✅
 - create header animation video ✅
 - fix anchor links in footer and nav ✅
@@ -19,6 +19,7 @@ TODO List
 
 - Create Gallery
 - Create Stills
+- Create Projects
  */
 
 //--GLOBAL
@@ -39,10 +40,6 @@ const worksComponent = document.querySelector('.work_component');
 const servicesComponent = document.querySelector('.services_component');
 const footer = document.querySelector('.footer');
 
-// Links
-const navLink = document.querySelectorAll('.nav-link');
-const footerLinks = document.querySelectorAll('[dn-footer-link]');
-
 //--COMP Back to top on load
 window.addEventListener('load', () => {
   window.scroll({
@@ -52,29 +49,24 @@ window.addEventListener('load', () => {
   });
 });
 
-//--COMP prevent scroll during preloader
-// let timer;
-// lenis.stop();
-// timer = setTimeout(() => {
-//   homeHeaderLoad();
-//   lenis.start();
-// }, 1500);
+//--COMP Hashless anchor links
+document.addEventListener('DOMContentLoaded', () => {
+  const menuBtns = document.querySelectorAll('[dn-anchor]');
 
-// document.addEventListener('DOMContentLoaded', () => {
-//   footerLinks.forEach((link) => {
-//     link.addEventListener('click', () => {
-//       setTimeout(removeHash);
-//     });
-//   });
-// });
+  menuBtns.forEach((menuBtn) => {
+    menuBtn.addEventListener('click', () => {
+      setTimeout(removeHash);
+    });
+  });
+});
 
-// function removeHash() {
-//   history.replaceState(
-//     null,
-//     document.title,
-//     `${window.location.origin}${window.location.pathname}${window.location.search}`
-//   );
-// }
+function removeHash() {
+  history.replaceState(
+    null,
+    document.title,
+    `${window.location.origin}${window.location.pathname}${window.location.search}`
+  );
+}
 
 //--LENIS
 // Lenis Selectors
@@ -162,8 +154,6 @@ createSwiper('is-services');
 //--GSAP
 gsap.registerPlugin(ScrollTrigger);
 
-//--> Reveal Animation
-
 //--> Scrolling Animations
 // Header Section
 function headerAnim() {
@@ -194,7 +184,7 @@ function headerAnim() {
 
 headerAnim();
 
-// Sections
+// Slide Sections
 function sectionsAnim() {
   sectionSlide.forEach((e, i) => {
     gsap.to(e, {
@@ -213,7 +203,7 @@ function sectionsAnim() {
 
 sectionsAnim();
 
-//--> Heading Animations
+// Heading Animations
 function headingAnim() {
   const headings = gsap.utils.toArray(headingContent.children);
 
@@ -228,12 +218,16 @@ function headingAnim() {
       },
     });
 
-    tl.to(e, {
-      opacity: 1,
-      yPercent: -25 * i,
-      scale: 1 + 0.1 * i,
-      delay: 0.3 * i,
-    }).to(e, { filter: `blur(${(headings.length - i - 1) * 0.5}rem)` });
+    tl.fromTo(
+      e,
+      { opacity: 0, yPercent: 0, scale: 1 },
+      {
+        opacity: 1,
+        yPercent: -25 * i,
+        scale: 1 + 0.1 * i,
+        delay: 0.3 * i,
+      }
+    ).to(e, { filter: `blur(${(headings.length - i - 1) * 0.5}rem)` });
   });
 
   let tlEnd = gsap.timeline({
@@ -252,21 +246,6 @@ function headingAnim() {
 }
 
 headingAnim();
-
-//--> Footer Reveal
-function footerFadeIn() {
-  gsap.to(footer, {
-    opacity: 1,
-    scrollTrigger: {
-      trigger: servicesComponent,
-      start: 'bottom bottom',
-      end: 'bottom bottom',
-      scrub: true,
-    },
-  });
-}
-
-footerFadeIn();
 
 //--COMP Close Modal
 function modalCloser() {
@@ -302,3 +281,12 @@ function modalCloser() {
 }
 
 modalCloser();
+
+let windowWidth = window.innerWidth;
+window.addEventListener('resize', function () {
+  if (windowWidth !== window.innerWidth) {
+    windowWidth = window.innerWidth;
+    modalCloser();
+    lenis.start();
+  }
+});
