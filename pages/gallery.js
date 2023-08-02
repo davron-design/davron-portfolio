@@ -48,16 +48,4 @@ lenisToggle.forEach((e) => {
 
 //--GLOBAL
 
-const galleryItem = document.querySelectorAll('.gallery_item');
-
 //--> Prevent Scroll When Lightbox is Opened
-
-function preventScroll() {
-  let isActive = false;
-  galleryItem.forEach((el) => {
-    el.addEventListener('click', () => {
-      isActive = true;
-      lenis.stop();
-    });
-  });
-}

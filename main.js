@@ -58,10 +58,14 @@ document.querySelector('.button-top').addEventListener('click', (e) => {
   e.preventDefault();
   window.scroll({
     top: 0,
-    left: 0,
     behavior: 'smooth',
   });
 });
+
+//////////////////////////////////////////////////////////////
+//--HOME
+//////////////////////////////////////////////////////////////
+gsap.registerPlugin(ScrollTrigger);
 
 //--LENIS
 // Lenis Selectors
@@ -119,9 +123,7 @@ function connectToScrollTrigger() {
 }
 
 connectToScrollTrigger();
-//////////////////////////////////////////////////////////////
-//--HOME
-//////////////////////////////////////////////////////////////
+
 //--SWIPER
 function createSwiper(className) {
   return new Swiper(`.swiper.${className}`, {
@@ -149,7 +151,6 @@ createSwiper('is-works');
 createSwiper('is-services');
 
 //--GSAP
-gsap.registerPlugin(ScrollTrigger);
 
 //--> Scrolling Animations
 // Header Section

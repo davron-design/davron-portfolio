@@ -1,5 +1,7 @@
 'use strict';
 
+console.log('stills dev');
+
 //--LENIS
 // Lenis Selectors
 const lenisStart = document.querySelectorAll('[data-lenis-start]');
@@ -58,17 +60,15 @@ function createSwiper(className) {
     // Navigation
     grabCursor: true,
     keyboard: { enabled: true },
-    navigation: {
-      prevEl: '.swiper-button-prev',
-      nextEl: '.swiper-button-next',
-    },
     pagination: {
       clickable: true,
+      type: 'fraction',
       dynamicBullets: true,
       el: `.swiper-pagination.${className}`,
     },
-    rewind: true,
+    loop: true,
     autoplay: {
+      delay: 5000,
       pauseOnMouseEnter: true,
       disableOnInteraction: false,
       enabled: true,
