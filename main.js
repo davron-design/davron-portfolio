@@ -205,7 +205,7 @@ function headingAnim() {
   const headings = gsap.utils.toArray(headingContent.children);
   let scaleVar = 1;
   function updateScaleVar() {
-    scaleVar = window.matchMedia('(max-width: 575px)').matches ? 0.8 : 1;
+    scaleVar = window.matchMedia('(max-width: 575px)').matches ? 0.75 : 1;
   }
 
   updateScaleVar();
