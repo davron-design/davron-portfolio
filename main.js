@@ -18,12 +18,15 @@ TODO List
 - Create Modal Animation for services ✅
 
 - Create Gallery ✅
-- Create Stills
+- Create Stills ✅
 - Create Projects
 
 // Version 2:
 - Create Barba transitions
 - Add swiper to gallery for multiple images
+
+BUG Report
+- Peformance issue was due to blue on the headings to create the halation effect
  */
 
 //--GLOBAL
@@ -136,6 +139,10 @@ function createSwiper(className) {
     // Navigation
     grabCursor: true,
     keyboard: { enabled: true },
+    navigation: {
+      prevEl: `.swiper-button-prev.${className}`,
+      nextEl: `.swiper-button-next.${className}`,
+    },
     pagination: { type: 'progressbar', el: `.swiper-pagination.${className}` },
     loop: true,
 
@@ -166,8 +173,6 @@ function headerAnim() {
     })
     .to(homeComponent, {
       borderRadius: '2rem',
-      scale: 0.8,
-      yPercent: 35,
       ease: 'sine.out',
     })
     .to(
@@ -188,12 +193,14 @@ function sectionsAnim() {
     gsap.to(e, {
       borderRadius: '0rem',
       scale: 1,
+      duration: 1,
       scrollTrigger: {
         trigger: e,
-        start: 'top',
+        start: 'top top+=25%',
         end: 'bottom center',
-        // markers: true,
-        scrub: 1.5,
+        markers: true,
+        toggleActions: 'play play reverse reverse',
+        ease: 'sine.out',
       },
     });
   });
