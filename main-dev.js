@@ -1,5 +1,5 @@
 /**
- * @version 0.9
+ * @version 0.9.1
  * @author davron-design.com
  */
 
@@ -8,14 +8,22 @@ console.log('local dev');
 
 /**
 TODO List
-- Optimize for mobile! ✅
-- Fix Nav with keydown action ✅
-- Create preLoader animation ✅
-- Refine Swiper animations ✅                     
-- create header animation video ✅
-- fix anchor links in footer and nav ✅
-- Create horizontal slider inside swiper for about section ✅
-- Create Modal Animation for services ✅
+  - Optimize for mobile! ✅
+  - Fix Nav with keydown action ✅
+  - Create preLoader animation ✅
+  - Refine Swiper animations ✅                     
+  - create header animation video ✅
+  - fix anchor links in footer and nav ✅
+  - Create horizontal slider inside swiper for about section ✅
+  - Create Modal Animation for services ✅
+  - Create mobile works header animation ✅
+- Fix SNS on mobile view
+- Fix mobile gallery reveal animation
+- Fix mobile landscape video
+- Fix mobile landscape works heading crashing with brand header
+- Fix jumping footer when scrolling
+- Add swiper lazy loading animations
+
 
 - Create Gallery ✅
 - Create Stills ✅

@@ -1,3 +1,8 @@
+/**
+ * @version 0.9.1
+ * @author davron-design.com
+ */
+
 'use strict';
 console.log('local dev');
 
@@ -17,22 +22,21 @@ let mm = gsap.matchMedia();
 const headingContent = document.querySelector('[dn-heading="content"]');
 
 function headerAnim() {
-  mm.add('(min-width: 767px)', () => {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: '.section_project-header',
-          start: 'top ',
-          end: 'bottom ',
-          scrub: 1.5,
-        },
-      })
-      .to('.section_project-header', {
-        borderRadius: '2rem',
-        scale: 0.8,
-        ease: 'sine.out',
-      });
-  });
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: '.section_project-header',
+        start: 'top ',
+        end: 'bottom ',
+        scrub: 1.5,
+      },
+    })
+    .to('.section_project-header', {
+      borderRadius: '2rem',
+      scale: 0.8,
+      ease: 'sine.out',
+    });
+  //   mm.add('(min-width: 767px)', () => {});
 }
 
 headerAnim();
