@@ -1,5 +1,5 @@
 /**
- * @version 0.8
+ * @version 0.8.5
  * @author davron-design.com
  */
 
@@ -8,7 +8,7 @@ console.log('local dev');
 
 /**
 TODO List
-- Optimize for mobile! 
+- Optimize for mobile! ✅
 - Fix Nav with keydown action ✅
 - Create preLoader animation ✅
 - Refine Swiper animations ✅                     
@@ -39,13 +39,9 @@ const headingContent = document.querySelector('[dn-heading="content"]');
 const headingContact = document.querySelector('.heading-contact');
 
 // Sections
-const sections = gsap.utils.toArray('[dn-section]');
 const sectionSlide = gsap.utils.toArray('[dn-slide]');
 const homeComponent = document.querySelector('.home_component');
-const aboutComponent = document.querySelector('.about_component');
-const worksComponent = document.querySelector('.work_component');
 const servicesComponent = document.querySelector('.services_component');
-const footer = document.querySelector('.footer');
 
 //--COMP Scroll back to top on load
 window.addEventListener('load', () => {
@@ -78,7 +74,7 @@ const lenisToggle = document.querySelectorAll('[data-lenis-toggle]');
 
 //--> Lenis Init
 const lenis = new Lenis({
-  lerp: 0.1,
+  lerp: 0.15,
   wheelMultiplier: 1,
   infinite: false,
   gestureOrientation: 'vertical',
@@ -163,50 +159,56 @@ createSwiper('is-services');
 
 //--GSAP
 
+let mm = gsap.matchMedia();
+
 //--> Scrolling Animations
 // Header Section
 function headerAnim() {
-  gsap
-    .timeline({
-      scrollTrigger: {
-        trigger: homeComponent,
-        start: 'top ',
-        end: 'bottom ',
-        scrub: 1.5,
-      },
-    })
-    .to(homeComponent, {
-      borderRadius: '2rem',
-      scale: 0.8,
-      yPercent: 35,
-      ease: 'sine.out',
-    })
-    .to(
-      '.heading-insert',
-      {
-        borderTopLeftRadius: '0rem',
-        borderTopRightRadius: '0rem',
-      },
-      '>'
-    );
+  mm.add('(min-width: 767px)', () => {
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: homeComponent,
+          start: 'top ',
+          end: 'bottom ',
+          scrub: 1.5,
+        },
+      })
+      .to(homeComponent, {
+        borderRadius: '2rem',
+        scale: 0.8,
+        yPercent: 35,
+        ease: 'sine.out',
+      })
+      .to(
+        '.heading-insert',
+        {
+          borderTopLeftRadius: '0rem',
+          borderTopRightRadius: '0rem',
+        },
+        '>'
+      );
+  });
 }
 
 headerAnim();
 
 function sectionsAnim() {
-  sectionSlide.forEach((e, i) => {
-    gsap.to(e, {
-      borderRadius: '0rem',
-      scale: 1,
-      duration: 1,
-      scrollTrigger: {
-        trigger: e,
-        start: 'top',
-        end: 'bottom center',
-        ease: 'sine.in',
-        scrub: 1,
-        // markers: true,
-      },
+  mm.add('(min-width: 767px)', () => {
+    sectionSlide.forEach((e, i) => {
+      gsap.to(e, {
+        borderRadius: '0rem',
+        scale: 1,
+        duration: 1,
+        scrollTrigger: {
+          trigger: e,
+          start: 'top',
+          end: 'bottom center',
+          ease: 'sine.in',
+          scrub: 1,
+          // markers: true,
+        },
+      });
     });
   });
 }
@@ -218,7 +220,7 @@ function headingAnim() {
   const headings = gsap.utils.toArray(headingContent.children);
   let scaleVar = 1;
   function updateScaleVar() {
-    scaleVar = window.matchMedia('(max-width: 575px)').matches ? 0.75 : 1;
+    scaleVar = window.matchMedia('(max-width: 767px)').matches ? 0.75 : 1;
   }
 
   updateScaleVar();
@@ -246,23 +248,25 @@ function headingAnim() {
       }
     ).to(e, { filter: `blur(${(headings.length - i - 1) * 0.5}rem)` });
   });
+}
 
-  let tlEnd = gsap.timeline({
+headingAnim();
+
+function headingSwap() {
+  const tlEnd = gsap.timeline({
     scrollTrigger: {
       trigger: servicesComponent,
       start: 'top top',
       end: 'bottom bottom',
-      scrub: 1,
-      ease: 'none',
+      toggleActions: 'play play reverse reverse',
     },
   });
-
   tlEnd
-    .to(headingContent, { display: 'none' })
-    .to(headingContact, { display: 'flex' });
+    .set(headingContent, { display: 'none' })
+    .set(headingContact, { display: 'flex' });
 }
 
-headingAnim();
+headingSwap();
 
 //--COMP Close Modal
 function modalCloser() {
