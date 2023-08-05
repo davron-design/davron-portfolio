@@ -79,7 +79,7 @@ const lenisToggle = document.querySelectorAll('[data-lenis-toggle]');
 //--> Lenis Init
 const lenis = new Lenis({
   lerp: 0.1,
-  wheelMultiplier: 1.2,
+  wheelMultiplier: 1,
   infinite: false,
   gestureOrientation: 'vertical',
   normalizeWheel: false,
@@ -140,12 +140,20 @@ function createSwiper(className) {
     grabCursor: true,
     keyboard: { enabled: true },
     pagination: { type: 'progressbar', el: `.swiper-pagination.${className}` },
-    loop: true,
+    navigation: {
+      prevEl: `.swiper-arrow-prev.${className}`,
+      nextEl: `.swiper-arrow-next.${className}`,
+    },
+    rewind: true,
 
     // Effects
-    modules: [EffectTinder],
     parallax: { enabled: true },
-    effect: 'tinder',
+    effect: 'creative',
+    creativeEffect: {
+      next: { shadow: true, translate: ['100%', 0, 100] },
+      prev: { shadow: true, translate: ['-50%', 0, -1] },
+      limitProgress: 5,
+    },
   });
 }
 
@@ -169,6 +177,8 @@ function headerAnim() {
     })
     .to(homeComponent, {
       borderRadius: '2rem',
+      scale: 0.8,
+      yPercent: 35,
       ease: 'sine.out',
     })
     .to(
@@ -183,7 +193,6 @@ function headerAnim() {
 
 headerAnim();
 
-// Slide Sections
 function sectionsAnim() {
   sectionSlide.forEach((e, i) => {
     gsap.to(e, {
@@ -191,11 +200,11 @@ function sectionsAnim() {
       scale: 1,
       duration: 1,
       scrollTrigger: {
-        trigger: e.parentElement,
-        start: 'top top+=10%',
-        end: 'bottom ',
-        toggleActions: 'play reverse play reverse',
+        trigger: e,
+        start: 'top',
+        end: 'bottom center',
         ease: 'sine.in',
+        scrub: 1,
         // markers: true,
       },
     });

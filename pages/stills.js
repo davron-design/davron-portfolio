@@ -66,6 +66,10 @@ function createSwiper(className) {
       dynamicBullets: true,
       el: `.swiper-pagination.${className}`,
     },
+    navigation: {
+      prevEl: `.swiper-arrow-prev.${className}`,
+      nextEl: `.swiper-arrow-next.${className}`,
+    },
     loop: true,
     autoplay: {
       delay: 5000,
