@@ -1,5 +1,5 @@
 /**
- * @version 0.7
+ * @version 0.8
  * @author davron-design.com
  */
 
@@ -139,10 +139,6 @@ function createSwiper(className) {
     // Navigation
     grabCursor: true,
     keyboard: { enabled: true },
-    navigation: {
-      prevEl: `.swiper-button-prev.${className}`,
-      nextEl: `.swiper-button-next.${className}`,
-    },
     pagination: { type: 'progressbar', el: `.swiper-pagination.${className}` },
     loop: true,
 
@@ -195,12 +191,12 @@ function sectionsAnim() {
       scale: 1,
       duration: 1,
       scrollTrigger: {
-        trigger: e,
-        start: 'top top+=25%',
-        end: 'bottom center',
-        markers: true,
-        toggleActions: 'play play reverse reverse',
-        ease: 'sine.out',
+        trigger: e.parentElement,
+        start: 'top top+=10%',
+        end: 'bottom ',
+        toggleActions: 'play reverse play reverse',
+        ease: 'sine.in',
+        // markers: true,
       },
     });
   });
