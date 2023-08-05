@@ -4,6 +4,103 @@
  */
 
 'use strict';
+console.log('local dev');
+
+/**
+TODO List
+- Optimize for mobile! ✅
+- Fix Nav with keydown action ✅
+- Create preLoader animation ✅
+- Refine Swiper animations ✅                     
+- create header animation video ✅
+- fix anchor links in footer and nav ✅
+- Create horizontal slider inside swiper for about section ✅
+- Create Modal Animation for services ✅
+
+- Create Gallery ✅
+- Create Stills ✅
+- Create Projects
+
+// Version 2:
+- Create Barba transitions
+- Add swiper to gallery for multiple images
+
+BUG Report
+- Peformance issue was due to blue on the headings to create the halation effect
+ */
+
+//--GLOBAL
+//--COMP Top Button
+document.querySelector('.button-top').addEventListener('click', (e) => {
+  e.preventDefault();
+  window.scroll({
+    top: 0,
+    behavior: 'smooth',
+  });
+});
+
+gsap.registerPlugin(ScrollTrigger);
+
+//--LENIS
+// Lenis Selectors
+const lenisStart = document.querySelectorAll('[data-lenis-start]');
+const lenisStop = document.querySelectorAll('[data-lenis-stop]');
+const lenisToggle = document.querySelectorAll('[data-lenis-toggle]');
+
+//--> Lenis Init
+const lenis = new Lenis({
+  lerp: 0.15,
+  wheelMultiplier: 1,
+  infinite: false,
+  gestureOrientation: 'vertical',
+  normalizeWheel: false,
+  smoothTouch: false,
+});
+
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// Lenis Event Listeners
+lenisStart.forEach((e) => {
+  e.addEventListener('click', () => {
+    lenis.start();
+  });
+});
+
+lenisStop.forEach((e) => {
+  e.addEventListener('click', () => {
+    lenis.stop();
+  });
+});
+
+lenisToggle.forEach((e) => {
+  e.addEventListener('click', () => {
+    e.classList.toggle('stop-scroll');
+    if (e.classList.contains('stop-scroll')) {
+      lenis.stop();
+    } else {
+      lenis.start();
+    }
+  });
+});
+
+// Lenis ScrollTrigger Init
+function connectToScrollTrigger() {
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+  gsap.ticker.lagSmoothing(0);
+}
+
+connectToScrollTrigger();
+
+//////////////////////////////////////////////////////////////
+//--HOME
+//////////////////////////////////////////////////////////////
 
 // Selects
 const buttonTop = document.querySelector('.button-top');
