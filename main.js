@@ -179,15 +179,7 @@ function headerAnim() {
         scale: 0.8,
         yPercent: 35,
         ease: 'sine.out',
-      })
-      .to(
-        '.heading-insert',
-        {
-          borderTopLeftRadius: '0rem',
-          borderTopRightRadius: '0rem',
-        },
-        '>'
-      );
+      });
   });
 }
 
@@ -218,13 +210,8 @@ sectionsAnim();
 // Heading Animations
 function headingAnim() {
   const headings = gsap.utils.toArray(headingContent.children);
-  let scaleVar = 1;
-  function updateScaleVar() {
-    scaleVar = window.matchMedia('(max-width: 767px)').matches ? 0.75 : 1;
-  }
-
-  updateScaleVar();
-  window.addEventListener('resize', updateScaleVar());
+  const scaleDesktop = 1;
+  const scaleMobile = 0.75;
 
   headings.forEach((e, i) => {
     let tl = gsap.timeline({
@@ -237,16 +224,33 @@ function headingAnim() {
       },
     });
 
-    tl.fromTo(
-      e,
-      { opacity: 0, yPercent: 0, scale: scaleVar },
-      {
-        opacity: 1,
-        yPercent: -25 * i,
-        scale: scaleVar + 0.1 * i,
-        delay: 0.3 * i,
-      }
-    ).to(e, { filter: `blur(${(headings.length - i - 1) * 0.5}rem)` });
+    // mobile version
+    mm.add('(max-width: 768px)', () => {
+      tl.fromTo(
+        e,
+        { opacity: 0, yPercent: 0, scale: scaleMobile },
+        {
+          opacity: 1,
+          yPercent: -25 * i,
+          scale: scaleMobile + 0.1 * i,
+          delay: 0.3 * i,
+        }
+      ).to(e, { opacity: `${(i - 0.5) * 0.5}` });
+    });
+
+    // desktop version
+    mm.add('(min-width: 767px)', () => {
+      tl.fromTo(
+        e,
+        { opacity: 0, yPercent: 0, scale: scaleDesktop },
+        {
+          opacity: 1,
+          yPercent: -25 * i,
+          scale: scaleDesktop + 0.1 * i,
+          delay: 0.3 * i,
+        }
+      ).to(e, { filter: `blur(${(headings.length - i - 1) * 0.5}rem)` });
+    });
   });
 }
 
@@ -307,6 +311,7 @@ let windowWidth = window.innerWidth;
 window.addEventListener('resize', function () {
   if (windowWidth !== window.innerWidth) {
     windowWidth = window.innerWidth;
+    location.reload();
     headingAnim();
     modalCloser();
     lenis.start();
