@@ -1,5 +1,5 @@
 /**
- * @version 0.9.1
+ * @version 0.9.2
  * @author davron-design.com
  */
 
@@ -12,6 +12,9 @@ function createSwiper(className) {
     threshold: 5,
     watchSlidesProgress: true,
     slidesPerGroupAuto: false,
+    lazy: {
+      loadPrevNext: true,
+    },
 
     // Navigation
     grabCursor: true,

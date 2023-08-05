@@ -1,5 +1,5 @@
 /**
- * @version 0.9.1
+ * @version 0.9.2
  * @author davron-design.com
  */
 
@@ -23,11 +23,14 @@ TODO List
 - Fix mobile landscape works heading crashing with brand header
 - Fix jumping footer when scrolling
 - Add swiper lazy loading animations
-
+- Defer all scripts!
+- Add aria-labels!
 
 - Create Gallery ✅
 - Create Stills ✅
 - Create Projects
+- Integrate Google Analytics
+- Create OGP and Logo
 
 // Version 2:
 - Create Barba transitions

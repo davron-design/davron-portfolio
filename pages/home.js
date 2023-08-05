@@ -1,5 +1,5 @@
 /**
- * @version 0.9.1
+ * @version 0.9.2
  * @author davron-design.com
  */
 
@@ -156,7 +156,7 @@ function headingSwap() {
       trigger: servicesComponent,
       start: 'top top',
       end: 'bottom bottom',
-      toggleActions: 'play play reverse reverse',
+      toggleActions: 'play none none reverse',
     },
   });
   tlEnd
