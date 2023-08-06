@@ -5,7 +5,7 @@
 
 'use strict';
 
-function createSwiper(className) {
+function stillsSwiper(className) {
   return new Swiper(`.swiper.${className}`, {
     // General Parameters
     speed: 1000,
@@ -45,4 +45,4 @@ function createSwiper(className) {
   });
 }
 
-createSwiper('is-stills');
+stillsSwiper('is-stills');

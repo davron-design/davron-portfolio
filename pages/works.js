@@ -22,7 +22,7 @@ let mm = gsap.matchMedia();
 const headingContent = document.querySelector('[dn-heading="content"]');
 const projectHeader = document.querySelector('[dn-section="project-header"]');
 
-function headerAnim() {
+function worksHeader() {
   mm.add('(min-width: 767px)', () => {
     gsap
       .timeline({
@@ -41,7 +41,7 @@ function headerAnim() {
   });
 }
 
-headerAnim();
+worksHeader();
 
 function headingAnim() {
   const headings = gsap.utils.toArray(headingContent.children);
