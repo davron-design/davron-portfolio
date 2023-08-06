@@ -1,10 +1,10 @@
 /**
- * @version 0.9.4
+ * @version 0.9.4.5
  * @author davron-design.com
  */
 
 'use strict';
-console.log('Welcome to davron-design v0.9.4');
+console.log('Welcome to D_DESIGN v0.9.4.5');
 
 /**
 TODO List
@@ -17,14 +17,12 @@ TODO List
   - Create horizontal slider inside swiper for about section ✅
   - Create Modal Animation for services ✅
   - Create mobile works header animation ✅
-- Fix SNS on mobile view
-- Fix mobile gallery reveal animation
-- Fix mobile landscape video
-- Fix mobile landscape works heading crashing with brand header
-- Fix jumping footer when scrolling
-- Add swiper lazy loading animations
-- Defer all scripts!
-- Add aria-labels!
+  - Fix SNS on mobile view ✅
+  - Fix mobile landscape video ✅
+  - Defer all scripts! ✅
+  - Fix mobile gallery reveal animation - removed ✅
+  - Fix mobile landscape works heading crashing with brand header - decreased h1 size ✅
+
 
 - Create Gallery ✅
 - Create Stills ✅
@@ -39,10 +37,10 @@ TODO List
 BUG Report
 - Peformance issue was due to blur on the headings to create the halation effect
 - Very high GPU usage -> One reason is that SVG render uses too much gpu!
+- Defer only works with hosted files, not local dev!
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-  //--GLOBAL
   //--COMP Top Button
   const buttonTop = document.querySelector('.button-top');
   buttonTop.addEventListener('click', (e) => {
@@ -121,6 +119,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Works Selects
   const projectHeader = document.querySelector('[dn-section="project-header"]');
+  const workHeadingContent = document.querySelector(
+    '[dn-heading="content-project"]'
+  );
 
   //--SWIPER
   // Swiper Home
@@ -212,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   //--> Scrolling Animations
   // Header Section
-  function headerAnim(component, yValue) {
+  function headerAnim(component, yVal) {
     mm.add('(min-width: 767px)', () => {
       gsap
         .timeline({
@@ -226,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .to(component, {
           borderRadius: '2rem',
           scale: 0.8,
-          yPercent: yValue,
+          yPercent: yVal,
           ease: 'sine.out',
         });
     });
@@ -257,14 +258,14 @@ document.addEventListener('DOMContentLoaded', function () {
   sectionsAnim();
 
   // Heading Animations
-  function headingAnim() {
+  function headingAnim(headingComp, scalMob, yVal) {
     // Check if headingContent is available
-    if (!headingContent) {
+    if (!headingComp) {
       return;
     }
-    const headings = gsap.utils.toArray(headingContent.children);
+    const headings = gsap.utils.toArray(headingComp.children);
     const scaleDesktop = 1;
-    const scaleMobile = 0.75;
+    const scaleMobile = scalMob;
 
     headings.forEach((e, i) => {
       let tl = gsap.timeline({
@@ -284,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
           { opacity: 0, yPercent: 0, scale: scaleMobile },
           {
             opacity: 1,
-            yPercent: -25 * i,
+            yPercent: yVal * i,
             scale: scaleMobile + 0.1 * i,
             delay: 0.3 * i,
           }
@@ -298,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function () {
           { opacity: 0, yPercent: 0, scale: scaleDesktop },
           {
             opacity: 1,
-            yPercent: -25 * i,
+            yPercent: yVal * i,
             scale: scaleDesktop + 0.1 * i,
             delay: 0.3 * i,
           }
@@ -307,7 +308,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  headingAnim();
+  headingAnim(headingContent, 0.75, -25);
+  headingAnim(workHeadingContent, 0.8, 100);
 
   function headingSwap() {
     const tlEnd = gsap.timeline({
