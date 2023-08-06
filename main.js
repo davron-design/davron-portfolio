@@ -1,10 +1,9 @@
 /**
- * @version 0.9.2.5
+ * @version 0.9.3
  * @author davron-design.com
  */
 
 'use strict';
-console.log('local dev');
 
 /**
 TODO List
@@ -43,7 +42,8 @@ BUG Report
 
 //--GLOBAL
 //--COMP Top Button
-document.querySelector('.button-top').addEventListener('click', (e) => {
+const buttonTop = document.querySelector('.button-top');
+buttonTop.addEventListener('click', (e) => {
   e.preventDefault();
   window.scroll({
     top: 0,
@@ -111,7 +111,6 @@ function connectToScrollTrigger() {
 connectToScrollTrigger();
 
 // Home Selects
-const buttonTop = document.querySelector('.button-top');
 const modalContact = document.querySelectorAll('.modal-card.is-contact');
 const headingContent = document.querySelector('[dn-heading="content"]');
 const headingContact = document.querySelector('.heading-contact');
@@ -255,7 +254,7 @@ sectionsAnim();
 
 // Heading Animations
 function headingAnim() {
-  const headings = gsap.utils.toArray(headingContent.children);
+  const headings = gsap.utils.toArray('.heading-item-wrapper');
   const scaleDesktop = 1;
   const scaleMobile = 0.75;
 
