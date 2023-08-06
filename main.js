@@ -1,9 +1,10 @@
 /**
- * @version 0.9.3.5
+ * @version 0.9.4
  * @author davron-design.com
  */
 
 'use strict';
+console.log('Welcome to davron-design v0.9.4');
 
 /**
 TODO List
@@ -257,6 +258,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Heading Animations
   function headingAnim() {
+    // Check if headingContent is available
+    if (!headingContent) {
+      return;
+    }
     const headings = gsap.utils.toArray(headingContent.children);
     const scaleDesktop = 1;
     const scaleMobile = 0.75;
