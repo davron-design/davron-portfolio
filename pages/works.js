@@ -1,5 +1,5 @@
 /**
- * @version 0.9.2
+ * @version 0.9.2.5
  * @author davron-design.com
  */
 
@@ -20,23 +20,25 @@ connectToScrollTrigger();
 //--GSAP
 let mm = gsap.matchMedia();
 const headingContent = document.querySelector('[dn-heading="content"]');
+const projectHeader = document.querySelector('[dn-section="project-header"]');
 
 function headerAnim() {
-  gsap
-    .timeline({
-      scrollTrigger: {
-        trigger: '.section_project-header',
-        start: 'top ',
-        end: 'bottom ',
-        scrub: 1.5,
-      },
-    })
-    .to('.section_project-header', {
-      borderRadius: '2rem',
-      scale: 0.8,
-      ease: 'sine.out',
-    });
-  //   mm.add('(min-width: 767px)', () => {});
+  mm.add('(min-width: 767px)', () => {
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: projectHeader,
+          start: 'top ',
+          end: 'bottom ',
+          scrub: 1.5,
+        },
+      })
+      .to(projectHeader, {
+        borderRadius: '2rem',
+        scale: 0.8,
+        ease: 'sine.out',
+      });
+  });
 }
 
 headerAnim();
@@ -44,7 +46,7 @@ headerAnim();
 function headingAnim() {
   const headings = gsap.utils.toArray(headingContent.children);
   const scaleDesktop = 1;
-  const scaleMobile = 0.75;
+  const scaleMobile = 0.8;
 
   headings.forEach((e, i) => {
     let tl = gsap.timeline({

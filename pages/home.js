@@ -1,5 +1,5 @@
 /**
- * @version 0.9.2
+ * @version 0.9.2.5
  * @author davron-design.com
  */
 
@@ -26,6 +26,9 @@ function createSwiper(className) {
     threshold: 5,
     watchSlidesProgress: true,
     slidesPerGroupAuto: false,
+    lazy: {
+      loadPrevNext: true,
+    },
 
     // Navigation
     grabCursor: true,
@@ -42,7 +45,7 @@ function createSwiper(className) {
     effect: 'creative',
     creativeEffect: {
       next: { shadow: true, translate: ['100%', 0, 100] },
-      prev: { shadow: true, translate: ['-50%', 0, -1] },
+      prev: { shadow: true, translate: ['-25%', 0, -1] },
       limitProgress: 5,
     },
   });

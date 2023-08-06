@@ -1,8 +1,7 @@
 /**
- * @version 0.9.2
+ * @version 0.9.2.5
  * @author davron-design.com
  */
-
 'use strict';
 
 //--COMP Top Button

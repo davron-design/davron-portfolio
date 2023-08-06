@@ -1,5 +1,5 @@
 /**
- * @version 0.9.2
+ * @version 0.9.2.5
  * @author davron-design.com
  */
 
@@ -37,7 +37,8 @@ TODO List
 - Add swiper to gallery for multiple images
 
 BUG Report
-- Peformance issue was due to blue on the headings to create the halation effect
+- Peformance issue was due to blur on the headings to create the halation effect
+- Very high GPU usage -> One reason is that SVG render uses too much gpu!
  */
 
 //--GLOBAL
@@ -134,6 +135,9 @@ function createSwiper(className) {
     threshold: 5,
     watchSlidesProgress: true,
     slidesPerGroupAuto: false,
+    lazy: {
+      loadPrevNext: true,
+    },
 
     // Navigation
     grabCursor: true,
