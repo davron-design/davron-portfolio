@@ -1,44 +1,23 @@
 /**
- * @version 0.9.4.5
+ * @version 0.9.5
  * @author davron-design.com
  */
 
 'use strict';
-console.log('Welcome to D_DESIGN v0.9.4.5');
+console.log('Welcome to D_DESIGN v0.9.5');
 
-/**
-TODO List
-  - Optimize for mobile! ✅
-  - Fix Nav with keydown action ✅
-  - Create preLoader animation ✅
-  - Refine Swiper animations ✅                     
-  - create header animation video ✅
-  - fix anchor links in footer and nav ✅
-  - Create horizontal slider inside swiper for about section ✅
-  - Create Modal Animation for services ✅
-  - Create mobile works header animation ✅
-  - Fix SNS on mobile view ✅
-  - Fix mobile landscape video ✅
-  - Defer all scripts! ✅
-  - Fix mobile gallery reveal animation - removed ✅
-  - Fix mobile landscape works heading crashing with brand header - decreased h1 size ✅
-
-
-- Create Gallery ✅
-- Create Stills ✅
-- Create Projects
-- Integrate Google Analytics
-- Create OGP and Logo
-
-// Version 2:
-- Create Barba transitions
-- Add swiper to gallery for multiple images
-
-BUG Report
-- Peformance issue was due to blur on the headings to create the halation effect
-- Very high GPU usage -> One reason is that SVG render uses too much gpu!
-- Defer only works with hosted files, not local dev!
- */
+// prevent loading a video on smaller screens
+if (window.matchMedia('screen and (max-width: 767px)').matches) {
+  const myVid = document.getElementById('home-media');
+  if (myVid) {
+    const myVidSrcs = myVid.getElementsByTagName('source');
+    // guarantee src URLs are not present
+    for (const vidSource of myVidSrcs) {
+      vidSource.src = '';
+    }
+    myVid.remove(); // remove the unneeded element
+  }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
   //--COMP Top Button
@@ -258,21 +237,21 @@ document.addEventListener('DOMContentLoaded', function () {
   sectionsAnim();
 
   // Heading Animations
-  function headingAnim(headingComp, scalMob, yVal) {
+  function headingAnim(headingComp, scalMobVal, yVal, start, end) {
     // Check if headingContent is available
     if (!headingComp) {
       return;
     }
     const headings = gsap.utils.toArray(headingComp.children);
     const scaleDesktop = 1;
-    const scaleMobile = scalMob;
+    const scaleMobile = scalMobVal;
 
     headings.forEach((e, i) => {
       let tl = gsap.timeline({
         scrollTrigger: {
           trigger: '.heading-insert',
-          start: 'top center',
-          end: 'bottom top',
+          start: `${start}`,
+          end: `${end}`,
           scrub: 1,
           ease: 'linear',
         },
@@ -308,8 +287,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  headingAnim(headingContent, 0.75, -25);
-  headingAnim(workHeadingContent, 0.8, 100);
+  headingAnim(headingContent, 0.75, -25, 'top center', 'bottom top');
+  headingAnim(workHeadingContent, 0.8, 100, 'top center+=25%', 'bottom center');
 
   function headingSwap() {
     const tlEnd = gsap.timeline({

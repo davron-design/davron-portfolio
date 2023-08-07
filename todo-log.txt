@@ -1,0 +1,37 @@
+/**
+TODO List
+  - Optimize for mobile! ✅
+  - Fix Nav with keydown action ✅
+  - Create preLoader animation ✅
+  - Refine Swiper animations ✅                     
+  - create header animation video ✅
+  - fix anchor links in footer and nav ✅
+  - Create horizontal slider inside swiper for about section ✅
+  - Create Modal Animation for services ✅
+  - Create mobile works header animation ✅
+  - Fix SNS on mobile view ✅
+  - Fix mobile landscape video ✅
+  - Defer all scripts! ✅
+  - Fix mobile gallery reveal animation - removed ✅
+  - Fix mobile landscape works heading crashing with brand header - decreased h1 size ✅
+  - Fix mobile navigation pop-ups ✅
+
+  - Update works text
+  - Write services text
+
+- Create Gallery ✅
+- Create Stills ✅
+- Create Projects ✅
+- Integrate Google Analytics
+- Create OGP and Logo
+
+BUG Report
+- Peformance issue was due to blur on the headings to create the halation effect
+- Very high GPU usage -> One reason is that SVG render uses too much gpu!
+- Defer only works with hosted files, not local dev!
+- Fixed initial flash by setting Opacity:0 on start of page load to elements that flash
+
+// Version 2:
+- Create Barba transitions
+- Add swiper to gallery for multiple images
+ */
