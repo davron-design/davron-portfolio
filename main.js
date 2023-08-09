@@ -1,10 +1,10 @@
 /**
- * @version 0.9.8
+ * @version 1.0.0
  * @author davron-design.com
  */
 
 'use strict';
-console.log('Welcome to D_DESIGN v0.9.8');
+console.log('Welcome to D_DESIGN v1.0.0');
 
 document.addEventListener('DOMContentLoaded', function () {
   //--GLOBAL
