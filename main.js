@@ -1,10 +1,10 @@
 /**
- * @version 0.9.7
+ * @version 0.9.8
  * @author davron-design.com
  */
 
 'use strict';
-console.log('Welcome to D_DESIGN v0.9.7');
+console.log('Welcome to D_DESIGN v0.9.8');
 
 document.addEventListener('DOMContentLoaded', function () {
   //--GLOBAL
@@ -101,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
       watchSlidesProgress: true,
       slidesPerGroupAuto: false,
       lazy: {
+        enabled: true,
         loadPrevNext: true,
       },
 
@@ -141,6 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
       watchSlidesProgress: true,
       slidesPerGroupAuto: false,
       lazy: {
+        enabled: true,
         loadPrevNext: true,
         loadPrevNextAmount: 2,
       },
