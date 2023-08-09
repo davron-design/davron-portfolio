@@ -1,17 +1,31 @@
 /**
- * @version 0.9.6
+ * @version 0.9.7
  * @author davron-design.com
  */
 
 'use strict';
-console.log('Welcome to D_DESIGN v0.9.6');
+console.log('Welcome to D_DESIGN v0.9.7');
 
 document.addEventListener('DOMContentLoaded', function () {
+  //--GLOBAL
+  // Home Selectors
+  const headingContent = document.querySelector('[dn-heading="content"]');
+  const headingContact = document.querySelector('.heading-contact');
+  const sectionSlide = gsap.utils.toArray('[dn-slide]');
+  const homeComponent = document.querySelector('.home_component');
+  const servicesComponent = document.querySelector('.services_component');
+
+  // Works Selectors
+  const projectHeader = document.querySelector('[dn-section="project-header"]');
+  const workHeadingContent = document.querySelector(
+    '[dn-heading="content-project"]'
+  );
+
   //--COMP Top Button
   const buttonTop = document.querySelector('.button-top');
   buttonTop.addEventListener('click', (e) => {
     e.preventDefault();
-    window.scroll({
+    window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
@@ -25,10 +39,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const lenisStop = document.querySelectorAll('[data-lenis-stop]');
   const lenisToggle = document.querySelectorAll('[data-lenis-toggle]');
 
-  //--> Lenis Init
+  // Lenis Init
   const lenis = new Lenis({
-    lerp: 0.15,
-    wheelMultiplier: 1,
+    lerp: 0.1,
+    wheelMultiplier: 1.2,
     infinite: false,
     gestureOrientation: 'vertical',
     normalizeWheel: false,
@@ -76,21 +90,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   connectToScrollTrigger();
 
-  // Home Selects
-  const headingContent = document.querySelector('[dn-heading="content"]');
-  const headingContact = document.querySelector('.heading-contact');
-  const sectionSlide = gsap.utils.toArray('[dn-slide]');
-  const homeComponent = document.querySelector('.home_component');
-  const servicesComponent = document.querySelector('.services_component');
-
-  // Works Selects
-  const projectHeader = document.querySelector('[dn-section="project-header"]');
-  const workHeadingContent = document.querySelector(
-    '[dn-heading="content-project"]'
-  );
-
   //--SWIPER
-  // Swiper Home
+
+  //--> Home Section Swiper
   function createSwiper(className) {
     return new Swiper(`.swiper.${className}`, {
       // General Parameters
@@ -130,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
   createSwiper('is-works');
   createSwiper('is-services');
 
-  // Swiper Stills
+  //--> Stills Swiper
   function stillsSwiper(className) {
     return new Swiper(`.swiper.${className}`, {
       // General Parameters
@@ -177,29 +179,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let mm = gsap.matchMedia();
 
-  //--> Scrolling Animations
-  // Header Section
-  function headerAnim(component, yVal) {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: component,
-          start: 'top ',
-          end: 'bottom ',
-          scrub: 1.5,
-        },
-      })
-      .to(component, {
-        borderRadius: '2rem',
-        scale: 0.8,
-        yPercent: yVal,
-        ease: 'sine.out',
-      });
+  //--> Home Header ANimation
+  function headerAnim(component, yVal, start, end) {
+    gsap.to(component, {
+      borderRadius: '2rem',
+      scale: 0.8,
+      yPercent: yVal,
+      ease: 'sine.out',
+      scrollTrigger: {
+        trigger: component,
+        start: 'top ',
+        end: 'bottom center',
+        scrub: 1.5,
+      },
+    });
   }
 
   headerAnim(homeComponent, 20);
   headerAnim(projectHeader, 0);
 
+  //--> Section Scroll Animations
   function sectionsAnim() {
     sectionSlide.forEach((e, i) => {
       gsap.to(e, {
@@ -219,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   sectionsAnim();
 
-  // Heading Animations
+  //--> Heading Insert Animation
   function headingAnim(headingComp, scalMobVal, yVal, start, end) {
     // Check if headingContent is available
     if (!headingComp) {
@@ -273,6 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
   headingAnim(headingContent, 0.75, -25, 'top center', 'bottom top');
   headingAnim(workHeadingContent, 0.8, 100, 'top center+=25%', 'bottom center');
 
+  //--> Helper: Swap Heading with Contact
   function headingSwap() {
     const tlEnd = gsap.timeline({
       scrollTrigger: {
@@ -289,7 +289,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   headingSwap();
 
-  //--COMP Close Modal
+  //--JS
+
+  //--> Close Modal
   function modalCloser() {
     const modalComponent = document.querySelectorAll('.modal-component');
     const closeButton = document.querySelectorAll(
@@ -326,6 +328,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   modalCloser();
 
+  //--> Reload Page on Resize
   let windowWidth = window.innerWidth;
   window.addEventListener('resize', function () {
     if (windowWidth !== window.innerWidth) {

@@ -15,8 +15,8 @@ TODO List
   - Fix mobile gallery reveal animation - removed ✅
   - Fix mobile landscape works heading crashing with brand header - decreased h1 size ✅
   - Fix mobile navigation pop-ups ✅
-
-  - Update works text
+  - Update works text✅
+  
   - Write services text
 
 - Create Gallery ✅
@@ -26,7 +26,7 @@ TODO List
 - Integrate Google Analytics
 - Create OGP and Logo
 
-BUG Report
+NOTES
 - Peformance issue was due to blur on the headings to create the halation effect
 -- Pefromance issue was due to iframe code missing from LENIS!!!!!
 - Very high GPU usage -> One reason is that SVG render uses too much gpu!
