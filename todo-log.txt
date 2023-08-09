@@ -22,11 +22,13 @@ TODO List
 - Create Gallery ✅
 - Create Stills ✅
 - Create Projects ✅
+
 - Integrate Google Analytics
 - Create OGP and Logo
 
 BUG Report
 - Peformance issue was due to blur on the headings to create the halation effect
+-- Pefromance issue was due to iframe code missing from LENIS!!!!!
 - Very high GPU usage -> One reason is that SVG render uses too much gpu!
 - Defer only works with hosted files, not local dev!
 - Fixed initial flash by setting Opacity:0 on start of page load to elements that flash

@@ -1,23 +1,10 @@
 /**
- * @version 0.9.5
+ * @version 0.9.6
  * @author davron-design.com
  */
 
 'use strict';
-console.log('Welcome to D_DESIGN v0.9.5');
-
-// prevent loading a video on smaller screens
-if (window.matchMedia('screen and (max-width: 767px)').matches) {
-  const myVid = document.getElementById('home-media');
-  if (myVid) {
-    const myVidSrcs = myVid.getElementsByTagName('source');
-    // guarantee src URLs are not present
-    for (const vidSource of myVidSrcs) {
-      vidSource.src = '';
-    }
-    myVid.remove(); // remove the unneeded element
-  }
-}
+console.log('Welcome to D_DESIGN v0.9.6');
 
 document.addEventListener('DOMContentLoaded', function () {
   //--COMP Top Button
@@ -193,43 +180,39 @@ document.addEventListener('DOMContentLoaded', function () {
   //--> Scrolling Animations
   // Header Section
   function headerAnim(component, yVal) {
-    mm.add('(min-width: 767px)', () => {
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: component,
-            start: 'top ',
-            end: 'bottom ',
-            scrub: 1.5,
-          },
-        })
-        .to(component, {
-          borderRadius: '2rem',
-          scale: 0.8,
-          yPercent: yVal,
-          ease: 'sine.out',
-        });
-    });
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: component,
+          start: 'top ',
+          end: 'bottom ',
+          scrub: 1.5,
+        },
+      })
+      .to(component, {
+        borderRadius: '2rem',
+        scale: 0.8,
+        yPercent: yVal,
+        ease: 'sine.out',
+      });
   }
 
   headerAnim(homeComponent, 20);
   headerAnim(projectHeader, 0);
 
   function sectionsAnim() {
-    mm.add('(min-width: 767px)', () => {
-      sectionSlide.forEach((e, i) => {
-        gsap.to(e, {
-          borderRadius: '0rem',
-          scale: 1,
-          duration: 1,
-          scrollTrigger: {
-            trigger: e,
-            start: 'top',
-            end: 'bottom center+=15%',
-            ease: 'sine.in',
-            scrub: 1,
-          },
-        });
+    sectionSlide.forEach((e, i) => {
+      gsap.to(e, {
+        borderRadius: '0rem',
+        scale: 1,
+        duration: 1,
+        scrollTrigger: {
+          trigger: e,
+          start: 'top',
+          end: 'bottom center+=15%',
+          ease: 'sine.in',
+          scrub: 1,
+        },
       });
     });
   }
