@@ -1,10 +1,10 @@
 /**
- * @version 1.0.0
+ * @version 1.0.1
  * @author davron-design.com
  */
 
 'use strict';
-console.log('Welcome to D_DESIGN v1.0.0');
+console.log('Welcome to D_DESIGN v1.0.1');
 
 document.addEventListener('DOMContentLoaded', function () {
   //--GLOBAL
@@ -34,61 +34,61 @@ document.addEventListener('DOMContentLoaded', function () {
   gsap.registerPlugin(ScrollTrigger);
 
   //--LENIS
-  // Lenis Selectors
-  const lenisStart = document.querySelectorAll('[data-lenis-start]');
-  const lenisStop = document.querySelectorAll('[data-lenis-stop]');
-  const lenisToggle = document.querySelectorAll('[data-lenis-toggle]');
+  // // Lenis Selectors
+  // const lenisStart = document.querySelectorAll('[data-lenis-start]');
+  // const lenisStop = document.querySelectorAll('[data-lenis-stop]');
+  // const lenisToggle = document.querySelectorAll('[data-lenis-toggle]');
 
-  // Lenis Init
-  const lenis = new Lenis({
-    lerp: 0.1,
-    wheelMultiplier: 1.2,
-    infinite: false,
-    gestureOrientation: 'vertical',
-    normalizeWheel: false,
-    smoothTouch: false,
-  });
+  // // Lenis Init
+  // const lenis = new Lenis({
+  //   lerp: 0.1,
+  //   wheelMultiplier: 1.2,
+  //   infinite: false,
+  //   gestureOrientation: 'vertical',
+  //   normalizeWheel: false,
+  //   smoothTouch: false,
+  // });
 
-  function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
+  // function raf(time) {
+  //   lenis.raf(time);
+  //   requestAnimationFrame(raf);
+  // }
+  // requestAnimationFrame(raf);
 
-  // Lenis Event Listeners
-  lenisStart.forEach((e) => {
-    e.addEventListener('click', () => {
-      lenis.start();
-    });
-  });
+  // // Lenis Event Listeners
+  // lenisStart.forEach((e) => {
+  //   e.addEventListener('click', () => {
+  //     lenis.start();
+  //   });
+  // });
 
-  lenisStop.forEach((e) => {
-    e.addEventListener('click', () => {
-      lenis.stop();
-    });
-  });
+  // lenisStop.forEach((e) => {
+  //   e.addEventListener('click', () => {
+  //     lenis.stop();
+  //   });
+  // });
 
-  lenisToggle.forEach((e) => {
-    e.addEventListener('click', () => {
-      e.classList.toggle('stop-scroll');
-      if (e.classList.contains('stop-scroll')) {
-        lenis.stop();
-      } else {
-        lenis.start();
-      }
-    });
-  });
+  // lenisToggle.forEach((e) => {
+  //   e.addEventListener('click', () => {
+  //     e.classList.toggle('stop-scroll');
+  //     if (e.classList.contains('stop-scroll')) {
+  //       lenis.stop();
+  //     } else {
+  //       lenis.start();
+  //     }
+  //   });
+  // });
 
-  // Lenis ScrollTrigger Init
-  function connectToScrollTrigger() {
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-    gsap.ticker.lagSmoothing(0);
-  }
+  // // Lenis ScrollTrigger Init
+  // function connectToScrollTrigger() {
+  //   lenis.on('scroll', ScrollTrigger.update);
+  //   gsap.ticker.add((time) => {
+  //     lenis.raf(time * 1000);
+  //   });
+  //   gsap.ticker.lagSmoothing(0);
+  // }
 
-  connectToScrollTrigger();
+  // connectToScrollTrigger();
 
   //--SWIPER
 
@@ -331,14 +331,14 @@ document.addEventListener('DOMContentLoaded', function () {
   modalCloser();
 
   //--> Reload Page on Resize
-  let windowWidth = window.innerWidth;
-  window.addEventListener('resize', function () {
-    if (windowWidth !== window.innerWidth) {
-      windowWidth = window.innerWidth;
-      location.reload();
-      headingAnim();
-      modalCloser();
-      lenis.start();
-    }
-  });
+  // let windowWidth = window.innerWidth;
+  // window.addEventListener('resize', function () {
+  //   if (windowWidth !== window.innerWidth) {
+  //     windowWidth = window.innerWidth;
+  //     location.reload();
+  //     headingAnim();
+  //     modalCloser();
+  //     lenis.start();
+  //   }
+  // });
 });
