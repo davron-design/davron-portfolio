@@ -329,4 +329,16 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   modalCloser();
+
+  //--> Reload Page on Resize
+  let windowWidth = window.innerWidth;
+  window.addEventListener('resize', function () {
+    if (windowWidth !== window.innerWidth) {
+      windowWidth = window.innerWidth;
+      location.reload();
+      headingAnim();
+      modalCloser();
+      lenis.start();
+    }
+  });
 });
