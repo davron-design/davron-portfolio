@@ -16,8 +16,7 @@ TODO List
   - Fix mobile landscape works heading crashing with brand header - decreased h1 size ✅
   - Fix mobile navigation pop-ups ✅
   - Update works text✅
-  
-  - Write services text
+  - Write services text ✅
 
 - Create Gallery ✅
 - Create Stills ✅
@@ -32,8 +31,11 @@ NOTES
 - Very high GPU usage -> One reason is that SVG render uses too much gpu!
 - Defer only works with hosted files, not local dev!
 - Fixed initial flash by setting Opacity:0 on start of page load to elements that flash
+- jsdelivr automatically minifies files when using .min.js extention!
 
 // Version 2:
 - Create Barba transitions
 - Add swiper to gallery for multiple images
+- Create gsap flip animation from masonry grid to list
+- Swiper Thumbnail controller instead of arrows, especially for works section
  */

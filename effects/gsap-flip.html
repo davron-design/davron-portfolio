@@ -1,0 +1,37 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Flip.min.js"></script>
+
+<script>
+  gsap.registerPlugin(Flip);
+
+  $('#change-view').on('click', function () {
+    let tl = gsap.timeline();
+
+    tl.to('#change-view-icon', {
+      rotation: 360,
+      duration: 0.5,
+      ease: 'power2.inOut',
+    }).to('#change-view-icon', {
+      rotation: 0,
+      duration: 0,
+      ease: 'none',
+    });
+
+    const change = Flip.getState(
+      '.gallery_list, .gallery_item-content, .gallery_lightbox, .gallery_item-image, .layer.is-gallery-overlay'
+    );
+
+    $('.gallery_list').toggleClass('is-list');
+    $('.gallery_item-content').toggleClass('is-list');
+    $('.gallery_lightbox').toggleClass('is-list');
+    $('.gallery_item-image').toggleClass('is-list');
+    $('.layer.is-gallery-overlay').toggleClass('hide');
+
+    Flip.from(change, {
+      duration: 1,
+      nested: true,
+      prune: true,
+      ease: 'sine.out',
+    });
+  });
+</script>
