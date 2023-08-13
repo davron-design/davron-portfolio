@@ -1,11 +1,11 @@
 /**
- * @version 1.0.3
+ * @version 1.0.1
  * @author davron-design.com
  */
 
 'use strict';
 console.log(
-  '%c Welcome to D_DESIGN v1.0.3',
+  '%c Welcome to D_DESIGN v1.0.2',
   'background: #ff5621; color: #121212; display: block; padding:5px; padding-right: 10px; border-radius:4px;'
 );
 
