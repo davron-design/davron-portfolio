@@ -1,0 +1,39 @@
+<script defer src="https://unpkg.com/swup@4"></script>
+
+<script>
+  // --SWUP
+  function resetWebflow(data) {
+    let parser = new DOMParser();
+    let dom = parser.parseFromString(data.next.html, 'text/html');
+    let webflowPageId = dom.querySelector('html').getAttribute('data-wf-page');
+    document.documentElement.setAttribute('data-wf-page', webflowPageId);
+    window.Webflow && window.Webflow.destroy();
+    window.Webflow && window.Webflow.ready();
+    window.Webflow && window.Webflow.require('ix2').init();
+  }
+
+  const swup = new Swup({
+    containers: ['#swup'],
+    animationSelector: '[class*="swup-transition-"]',
+  });
+  swup.hooks.on(
+    'content:replace',
+    () => {
+      resetWebflow();
+    },
+    { before: true }
+  );
+</script>
+
+<style>
+  /* Swup Transitions */
+  .swup-transition-fade {
+    opacity: 1;
+    transition: 500ms;
+  }
+
+  html.is-animating .swup-transition-fade {
+    opacity: 0;
+    transition: 500ms;
+  }
+</style>
