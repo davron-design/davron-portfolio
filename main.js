@@ -1,11 +1,11 @@
 /**
- * @version 1.0.3
+ * @version 1.0.5
  * @author davron-design.com
  */
 
 'use strict';
 console.log(
-  '%c Welcome to D_DESIGN v1.0.3',
+  '%c Welcome to D_DESIGN v1.0.5',
   'background: #ff5621; color: #121212; display: block; padding:5px; padding-right: 10px; border-radius:4px;'
 );
 
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
       rewind: true,
 
       // Effects
-      parallax: { enabled: true },
+      parallax: { enabled: false },
       effect: 'creative',
       creativeEffect: {
         next: { shadow: true, translate: ['100%', 0, 100] },
