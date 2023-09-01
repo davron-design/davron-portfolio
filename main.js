@@ -1,11 +1,11 @@
 /**
- * @version 1.0.5
+ * @version 1.0.6
  * @author davron-design.com
  */
 
 'use strict';
 console.log(
-  '%c Welcome to D_DESIGN v1.0.5',
+  '%c Welcome to D_DESIGN v1.0.6',
   'background: #ff5621; color: #121212; display: block; padding:5px; padding-right: 10px; border-radius:4px;'
 );
 
@@ -185,37 +185,33 @@ document.addEventListener('DOMContentLoaded', function () {
   let mm = gsap.matchMedia();
 
   //--> Home Header ANimation
-  function headerAnim(component, yVal, start, end) {
+  function headerAnim(component) {
     gsap.to(component, {
       borderRadius: '2rem',
-      scale: 0.8,
-      yPercent: yVal,
-      ease: 'sine.out',
+      duration: 1,
       scrollTrigger: {
         trigger: component,
-        start: 'top ',
-        end: 'bottom center',
-        scrub: 1.5,
+        start: 'bottom center+=25%',
+        end: 'bottom center+=25%',
+        toggleActions: 'play none none reverse',
       },
     });
   }
 
-  headerAnim(homeComponent, 20);
-  headerAnim(projectHeader, 0);
+  headerAnim(homeComponent);
+  headerAnim(projectHeader);
 
   //--> Section Scroll Animations
   function sectionsAnim() {
     sectionSlide.forEach((e, i) => {
       gsap.to(e, {
         borderRadius: '0rem',
-        scale: 1,
-        duration: 1,
+        duration: 0.3,
         scrollTrigger: {
           trigger: e,
           start: 'top',
           end: 'bottom center+=15%',
-          ease: 'sine.in',
-          scrub: 1,
+          toggleActions: 'play none none reverse',
         },
       });
     });
