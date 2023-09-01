@@ -17,13 +17,14 @@ TODO List
   - Fix mobile navigation pop-ups ✅
   - Update works text✅
   - Write services text ✅
+  - Create Gallery ✅
+  - Create Stills ✅
+  - Create Projects ✅
+  - Integrate Google Analytics
+  - Create OGP and Logo
 
-- Create Gallery ✅
-- Create Stills ✅
-- Create Projects ✅
-
-- Integrate Google Analytics
-- Create OGP and Logo
+BUG Report
+- Safari on Mac has serious issues with the blurry background glitching through
 
 NOTES
 - Peformance issue was due to blur on the headings to create the halation effect
