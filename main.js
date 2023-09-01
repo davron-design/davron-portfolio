@@ -1,11 +1,11 @@
 /**
- * @version 1.0.4
+ * @version 1.0.3
  * @author davron-design.com
  */
 
 'use strict';
 console.log(
-  '%c Welcome to D_DESIGN v1.0.4',
+  '%c Welcome to D_DESIGN v1.0.3',
   'background: #ff5621; color: #121212; display: block; padding:5px; padding-right: 10px; border-radius:4px;'
 );
 
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
       rewind: true,
 
       // Effects
-      parallax: { enabled: false },
+      parallax: { enabled: true },
       effect: 'creative',
       creativeEffect: {
         next: { shadow: true, translate: ['100%', 0, 100] },
@@ -203,6 +203,26 @@ document.addEventListener('DOMContentLoaded', function () {
   headerAnim(homeComponent, 20);
   headerAnim(projectHeader, 0);
 
+  //--> Section Scroll Animations
+  function sectionsAnim() {
+    sectionSlide.forEach((e, i) => {
+      gsap.to(e, {
+        borderRadius: '0rem',
+        scale: 1,
+        duration: 1,
+        scrollTrigger: {
+          trigger: e,
+          start: 'top',
+          end: 'bottom center+=15%',
+          ease: 'sine.in',
+          scrub: 1,
+        },
+      });
+    });
+  }
+
+  sectionsAnim();
+
   //--> Heading Insert Animation
   function headingAnim(headingComp, scalMobVal, yVal, start, end) {
     // Check if headingContent is available
@@ -224,55 +244,38 @@ document.addEventListener('DOMContentLoaded', function () {
         },
       });
 
-      tl.fromTo(
-        e,
-        { opacity: 0, yPercent: 0, scale: scaleDesktop },
-        {
-          opacity: 1,
-          yPercent: yVal * i,
-          scale: scaleDesktop + 0.1 * i,
-          delay: 0.3 * i,
-        }
-      ).to(e, { filter: `blur(${(headings.length - i - 1) * 0.5}rem)` });
-    });
+      // mobile version
+      mm.add('(max-width: 768px)', () => {
+        tl.fromTo(
+          e,
+          { opacity: 0, yPercent: 0, scale: scaleMobile },
+          {
+            opacity: 1,
+            yPercent: yVal * i,
+            scale: scaleMobile + 0.1 * i,
+            delay: 0.3 * i,
+          }
+        ).to(e, { opacity: `${(i - 0.5) * 0.5}` });
+      });
 
-    // mobile version
-    mm.add('(max-width: 768px)', () => {
-      tl.fromTo(
-        e,
-        { opacity: 0, yPercent: 0, scale: scaleMobile },
-        {
-          opacity: 1,
-          yPercent: yVal * i,
-          scale: scaleMobile + 0.1 * i,
-          delay: 0.3 * i,
-        }
-      ).to(e, { opacity: `${(i - 0.5) * 0.5}` });
+      // desktop version
+      mm.add('(min-width: 767px)', () => {
+        tl.fromTo(
+          e,
+          { opacity: 0, yPercent: 0, scale: scaleDesktop },
+          {
+            opacity: 1,
+            yPercent: yVal * i,
+            scale: scaleDesktop + 0.1 * i,
+            delay: 0.3 * i,
+          }
+        ).to(e, { filter: `blur(${(headings.length - i - 1) * 0.5}rem)` });
+      });
     });
   }
 
   headingAnim(headingContent, 0.75, -25, 'top center', 'bottom top');
   headingAnim(workHeadingContent, 0.8, 100, 'top center+=25%', 'bottom center');
-
-  //--> Section Scroll Animations
-  function sectionsAnim() {
-    sectionSlide.forEach((e, i) => {
-      gsap.to(e, {
-        // borderRadius: '0rem',
-        duration: 1,
-        scrollTrigger: {
-          trigger: e,
-          pin: e.parentNode,
-          start: 'top',
-          end: 'bottom top',
-          ease: 'sine.in',
-          scrub: 1,
-        },
-      });
-    });
-  }
-
-  sectionsAnim();
 
   //--> Helper: Swap Heading with Contact
   function headingSwap() {
