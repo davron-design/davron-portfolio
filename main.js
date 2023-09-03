@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   gsap.registerPlugin(ScrollTrigger);
-  ScrollTrigger.normalizeScroll(true);
 
   //--LENIS
   // Lenis Selectors
