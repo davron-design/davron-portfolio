@@ -1,11 +1,11 @@
 /**
- * @version 1.0.6
+ * @version 1.0.7
  * @author davron-design.com
  */
 
 'use strict';
 console.log(
-  '%c Welcome to D_DESIGN v1.0.6',
+  '%c Welcome to D_DESIGN v1.0.7',
   'background: #ff5621; color: #121212; display: block; padding:5px; padding-right: 10px; border-radius:4px;'
 );
 
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   headerAnim(homeComponent, 20);
-  headerAnim(projectHeader, 10);
+  headerAnim(projectHeader, 0);
 
   //--> Heading Insert Animation
   function headingAnim(headingComp, scalMobVal, yVal, start, end) {
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function () {
             scale: scaleMobile + 0.1 * i,
             delay: 0.3 * i,
           }
-        ).to(e, { opacity: `${(i - 0.5) * 0.5}` });
+        ).to(e, { opacity: `${i === 2 ? 1 : i === 1 ? 0.5 : 0.25}` });
       });
 
       // desktop version
@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
             scale: scaleDesktop + 0.1 * i,
             delay: 0.3 * i,
           }
-        ).to(e, { opacity: `${(headings.length - i - 1) * 0.5}` });
+        ).to(e, { opacity: `${i === 2 ? 1 : i === 1 ? 0.5 : 0.25}` });
       });
     });
   }
