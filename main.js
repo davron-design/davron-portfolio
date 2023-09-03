@@ -1,11 +1,11 @@
 /**
- * @version 1.0.5
+ * @version 1.0.6
  * @author davron-design.com
  */
 
 'use strict';
 console.log(
-  '%c Welcome to D_DESIGN v1.0.5',
+  '%c Welcome to D_DESIGN v1.0.6',
   'background: #ff5621; color: #121212; display: block; padding:5px; padding-right: 10px; border-radius:4px;'
 );
 
@@ -136,56 +136,12 @@ document.addEventListener('DOMContentLoaded', function () {
   createSwiper('is-works');
   createSwiper('is-services');
 
-  //--> Stills Swiper
-  function stillsSwiper(className) {
-    return new Swiper(`.swiper.${className}`, {
-      // General Parameters
-      speed: 1000,
-      threshold: 5,
-      watchSlidesProgress: true,
-      slidesPerGroupAuto: false,
-      lazy: {
-        enabled: true,
-        loadPrevNext: true,
-        loadPrevNextAmount: 2,
-      },
-
-      // Navigation
-      grabCursor: true,
-      keyboard: { enabled: true },
-      pagination: {
-        clickable: true,
-        type: 'fraction',
-        dynamicBullets: true,
-        el: `.swiper-pagination.${className}`,
-      },
-      navigation: {
-        prevEl: `.swiper-arrow-prev.${className}`,
-        nextEl: `.swiper-arrow-next.${className}`,
-      },
-      loop: true,
-      autoplay: {
-        delay: 5000,
-        pauseOnMouseEnter: true,
-        disableOnInteraction: false,
-        enabled: true,
-      },
-
-      // Effects
-      modules: [EffectPanorama],
-      parallax: { enabled: true },
-      effect: 'panorama',
-    });
-  }
-
-  stillsSwiper('is-stills');
-
   //--GSAP
 
   let mm = gsap.matchMedia();
 
   //--> Home Header ANimation
-  function headerAnim(component, yVal, start, end) {
+  function headerAnim(component, yVal) {
     gsap.to(component, {
       borderRadius: '2rem',
       scale: 0.8,
@@ -201,27 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   headerAnim(homeComponent, 20);
-  headerAnim(projectHeader, 0);
-
-  //--> Section Scroll Animations
-  function sectionsAnim() {
-    sectionSlide.forEach((e, i) => {
-      gsap.to(e, {
-        borderRadius: '0rem',
-        scale: 1,
-        duration: 1,
-        scrollTrigger: {
-          trigger: e,
-          start: 'top',
-          end: 'bottom center+=15%',
-          ease: 'sine.in',
-          scrub: 1,
-        },
-      });
-    });
-  }
-
-  sectionsAnim();
+  headerAnim(projectHeader, 10);
 
   //--> Heading Insert Animation
   function headingAnim(headingComp, scalMobVal, yVal, start, end) {
@@ -239,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
           trigger: '.heading-insert',
           start: `${start}`,
           end: `${end}`,
-          scrub: 1,
+          scrub: 0.75,
           ease: 'linear',
         },
       });
@@ -276,6 +212,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
   headingAnim(headingContent, 0.75, -25, 'top center', 'bottom top');
   headingAnim(workHeadingContent, 0.8, 100, 'top center+=25%', 'bottom center');
+
+  //--> Section Scroll Animations
+  function sectionsAnim() {
+    sectionSlide.forEach((e, i) => {
+      gsap.to(e, {
+        borderRadius: '0rem',
+        scale: 1,
+        duration: 1,
+        scrollTrigger: {
+          trigger: e,
+          start: 'top',
+          end: 'bottom center+=15%',
+          ease: 'sine.in',
+          scrub: 1,
+        },
+      });
+    });
+  }
+
+  sectionsAnim();
 
   //--> Helper: Swap Heading with Contact
   function headingSwap() {
@@ -332,4 +288,16 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   modalCloser();
+
+  //--> Reload Page on Resize
+  let windowWidth = window.innerWidth;
+  window.addEventListener('resize', function () {
+    if (windowWidth !== window.innerWidth) {
+      windowWidth = window.innerWidth;
+      location.reload();
+      modalCloser();
+      lenis.start();
+      ScrollTrigger.update();
+    }
+  });
 });
