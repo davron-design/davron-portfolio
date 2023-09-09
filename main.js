@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
             scale: scaleDesktop + 0.1 * i,
             delay: 0.3 * i,
           }
-        ).to(e, { opacity: `${i === 2 ? 1 : i === 1 ? 0.5 : 0.25}` });
+        ).to(e, { filter: `blur(${i === 2 ? 0.5 : i === 1 ? 4 : 8}px)` });
       });
     });
   }
