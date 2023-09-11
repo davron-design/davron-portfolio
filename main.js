@@ -1,11 +1,11 @@
 /**
- * @version 1.0.7
+ * @version 1.0.8
  * @author davron-design.com
  */
 
 'use strict';
 console.log(
-  '%c Welcome to D_DESIGN v1.0.7',
+  '%c Welcome to D_DESIGN v1.0.8',
   'background: #ff5621; color: #121212; display: block; padding:5px; padding-right: 10px; border-radius:4px;'
 );
 
@@ -200,11 +200,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  headerAnim(homeComponent, 20);
-  headerAnim(projectHeader, 0);
+  headerAnim(homeComponent, 25);
+  headerAnim(projectHeader, 20);
 
   //--> Heading Insert Animation
-  function headingAnim(headingComp, scalMobVal, yVal, start, end) {
+  function headingAnim(headingComp, scalMobVal, yVal, endTrigger, start, end) {
     // Check if headingContent is available
     if (!headingComp) {
       return;
@@ -218,6 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
         scrollTrigger: {
           trigger: '.heading-insert',
           start: `${start}`,
+          endTrigger: `${endTrigger}`,
           end: `${end}`,
           scrub: 0.75,
           ease: 'linear',
@@ -254,8 +255,22 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  headingAnim(headingContent, 0.75, -25, 'top center', 'bottom top');
-  headingAnim(workHeadingContent, 0.8, 100, 'top center+=25%', 'bottom center');
+  headingAnim(
+    headingContent,
+    0.75,
+    -25,
+    '.about_component',
+    'top center',
+    'top center'
+  );
+  headingAnim(
+    workHeadingContent,
+    0.8,
+    100,
+    '.heading-insert',
+    'top center',
+    'bottom top+=25%'
+  );
 
   //--> Section Scroll Animations
   function sectionsAnim() {
