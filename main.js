@@ -1,11 +1,11 @@
 /**
- * @version 1.0.8
+ * @version 1.0.9
  * @author davron-design.com
  */
 
 'use strict';
 console.log(
-  '%c Welcome to D_DESIGN v1.0.8',
+  '%c Welcome to D_DESIGN v1.0.9',
   'background: #ff5621; color: #121212; display: block; padding:5px; padding-right: 10px; border-radius:4px;'
 );
 
@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const sectionSlide = gsap.utils.toArray('[dn-slide]');
   const homeComponent = document.querySelector('.home_component');
   const workComponent = document.querySelector('.work_component');
+  const discoverComponent = document.querySelector('.discover_component');
 
   // Works Selectors
   const projectHeader = document.querySelector('[dn-section="project-header"]');
@@ -296,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function headingSwap() {
     const tlEnd = gsap.timeline({
       scrollTrigger: {
-        trigger: workComponent,
+        trigger: discoverComponent,
         start: 'top top',
         end: 'bottom bottom',
         toggleActions: 'play none none reverse',
