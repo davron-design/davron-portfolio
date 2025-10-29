@@ -5,7 +5,7 @@
 
 'use strict';
 console.log(
-  '%c Welcome to D_DESIGN v1.0.9',
+  '%c Welcome to (formerly) D_DESIGN v1.0.9',
   'background: #ff5621; color: #121212; display: block; padding:5px; padding-right: 10px; border-radius:4px;'
 );
 
@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const headingContact = document.querySelector('.heading-contact');
   const sectionSlide = gsap.utils.toArray('[dn-slide]');
   const homeComponent = document.querySelector('.home_component');
-  const workComponent = document.querySelector('.work_component');
   const discoverComponent = document.querySelector('.discover_component');
 
   // Works Selectors
