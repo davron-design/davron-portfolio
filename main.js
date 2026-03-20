@@ -1,11 +1,11 @@
 /**
- * @version 1.0.8.5
+ * @version 1.0.8.6
  * @author davron-design.com
  */
 
 'use strict';
 console.log(
-  '%c Welcome to (formerly) D_DESIGN v1.0.8.5',
+  '%c Welcome to (formerly) D_DESIGN v1.0.8.6',
   'background: #ff5621; color: #121212; display: block; padding:5px; padding-right: 10px; border-radius:4px;'
 );
 
@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function () {
     workHeadingContent,
     0.8,
     100,
-    '.heading-insert',
+    '.approach_component',
     'top center',
     'bottom top+=25%'
   );
