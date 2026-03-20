@@ -1,11 +1,11 @@
 /**
- * @version 1.0.8.6
+ * @version 1.0.8.7
  * @author davron-design.com
  */
 
 'use strict';
 console.log(
-  '%c Welcome to (formerly) D_DESIGN v1.0.8.6',
+  '%c Welcome to (formerly) D_DESIGN v1.0.8.7',
   'background: #ff5621; color: #121212; display: block; padding:5px; padding-right: 10px; border-radius:4px;'
 );
 
@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const headingContact = document.querySelector('.heading-contact');
   const sectionSlide = gsap.utils.toArray('[dn-slide]');
   const homeComponent = document.querySelector('.home_component');
+  const aboutComponent = document.querySelector('.about_component');
   const approachComponent = document.querySelector('.approach_component');
   const workComponent = document.querySelector('.work_component');
 
@@ -241,26 +242,29 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       // desktop version
-      mm.add('(min-width: 767px)', () => {
-        tl.fromTo(
-          e,
-          { opacity: 0, yPercent: 0, scale: scaleDesktop },
-          {
-            opacity: 1,
-            yPercent: yVal * i,
-            scale: scaleDesktop + 0.1 * i,
-            delay: 0.3 * i,
-          }
-        ).to(e, { opacity: `${i === 2 ? 1 : i === 1 ? 0.5 : 0.25}` });
-      });
-    });
+mm.add('(min-width: 767px)', () => {
+  tl.fromTo(
+    e,
+    { opacity: 0, yPercent: 0, scale: scaleDesktop, filter: 'blur(0px)' },
+    {
+      opacity: 1,
+      yPercent: yVal * i,
+      scale: scaleDesktop + 0.1 * i,
+      delay: 0.3 * i,
+      filter: 'blur(0px)',
+    }
+  ).to(e, {
+    opacity: `${i === 2 ? 1 : i === 1 ? 0.5 : 0.25}`,
+    filter: `blur(${i === 2 ? 0 : i === 1 ? 1 : 2}px)`,
+  });
+});
   }
 
   headingAnim(
     headingContent,
     0.75,
     -25,
-    '.about_component',
+    aboutComponent,
     'top center',
     'top center'
   );
