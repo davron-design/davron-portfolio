@@ -256,8 +256,9 @@ mm.add('(min-width: 767px)', () => {
   ).to(e, {
     opacity: `${i === 2 ? 1 : i === 1 ? 0.5 : 0.25}`,
     filter: `blur(${i === 2 ? 0 : i === 1 ? 1 : 2}px)`,
-  });
-});
+        });
+      });
+    });
   }
 
   headingAnim(
