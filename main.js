@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const headingContact = document.querySelector('.heading-contact');
   const sectionSlide = gsap.utils.toArray('[dn-slide]');
   const homeComponent = document.querySelector('.home_component');
+  const approachComponent = document.querySelector('.approach_component');
   const workComponent = document.querySelector('.work_component');
 
   // Works Selectors
@@ -267,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function () {
     workHeadingContent,
     0.8,
     100,
-    '.approach_component',
+    approachComponent,
     'top center',
     'bottom top+=25%'
   );
