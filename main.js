@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const headingContact = document.querySelector('.heading-contact');
   const sectionSlide = gsap.utils.toArray('[dn-slide]');
   const homeComponent = document.querySelector('.home_component');
-  const discoverComponent = document.querySelector('.discover_component');
+  const workComponent = document.querySelector('.work_component');
 
   // Works Selectors
   const projectHeader = document.querySelector('[dn-section="project-header"]');
@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function headingSwap() {
     const tlEnd = gsap.timeline({
       scrollTrigger: {
-        trigger: discoverComponent,
+        trigger: workComponent,
         start: 'top top',
         end: 'bottom bottom',
         toggleActions: 'play none none reverse',
