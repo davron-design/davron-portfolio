@@ -6,7 +6,7 @@
 'use strict';
 console.log(
   '%c Welcome to (formerly) D_DESIGN v1.0.9',
-  'background: #ff5621; color: #121212; display: block; padding:5px; padding-right: 10px; border-radius:4px;'
+  'background: #ff5621; color: #121212; display: block; padding:5px; padding-right: 10px; border-radius:4px;',
 );
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -16,14 +16,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const headingContact = document.querySelector('.heading-contact');
   const sectionSlide = gsap.utils.toArray('[dn-slide]');
   const homeComponent = document.querySelector('.home_component');
-  const aboutComponent = document.querySelector('.about_component');
   const approachComponent = document.querySelector('.approach_component');
   const workComponent = document.querySelector('.work_component');
 
   // Works Selectors
   const projectHeader = document.querySelector('[dn-section="project-header"]');
   const workHeadingContent = document.querySelector(
-    '[dn-heading="content-project"]'
+    '[dn-heading="content-project"]',
   );
 
   //--COMP Top Button
@@ -136,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   createSwiper('is-about');
   createSwiper('is-works');
-  createSwiper('is-services');
+  createSwiper('is-approach');
 
   //--> Stills Swiper
   function stillsSwiper(className) {
@@ -224,6 +223,7 @@ document.addEventListener('DOMContentLoaded', function () {
           end: `${end}`,
           scrub: 0.75,
           ease: 'linear',
+          // markers: true,
         },
       });
 
@@ -237,25 +237,28 @@ document.addEventListener('DOMContentLoaded', function () {
             yPercent: yVal * i,
             scale: scaleMobile + 0.1 * i,
             delay: 0.3 * i,
-          }
-        ).to(e, { opacity: `${i === 2 ? 1 : i === 1 ? 0.5 : 0.25}` });
+            filter: 'blur(0px)',
+          },
+        ).to(e, {
+          opacity: `${i === 2 ? 1 : i === 1 ? 0.5 : 0.25}`,
+          filter: `blur(${i === 2 ? 0 : i === 1 ? 2 : 4}px)`,
+        });
       });
 
       // desktop version
-mm.add('(min-width: 767px)', () => {
-  tl.fromTo(
-    e,
-    { opacity: 0, yPercent: 0, scale: scaleDesktop, filter: 'blur(0px)' },
-    {
-      opacity: 1,
-      yPercent: yVal * i,
-      scale: scaleDesktop + 0.1 * i,
-      delay: 0.3 * i,
-      filter: 'blur(0px)',
-    }
-  ).to(e, {
-    opacity: `${i === 2 ? 1 : i === 1 ? 0.5 : 0.25}`,
-    filter: `blur(${i === 2 ? 0 : i === 1 ? 1 : 2}px)`,
+      mm.add('(min-width: 767px)', () => {
+        tl.fromTo(
+          e,
+          { opacity: 0, yPercent: 0, scale: scaleDesktop },
+          {
+            opacity: 1,
+            yPercent: yVal * i,
+            scale: scaleDesktop + 0.1 * i,
+            delay: 0.3 * i,
+          },
+        ).to(e, {
+          opacity: `${i === 2 ? 1 : i === 1 ? 0.5 : 0.35}`,
+          filter: `blur(${i === 2 ? 0 : i === 1 ? 2 : 4}px)`,
         });
       });
     });
@@ -264,18 +267,19 @@ mm.add('(min-width: 767px)', () => {
   headingAnim(
     headingContent,
     0.75,
-    -25,
-    aboutComponent,
+    -50,
+    '.about_component',
     'top center',
-    'top center'
+    'top bottom',
   );
+
   headingAnim(
     workHeadingContent,
     0.8,
-    100,
-    approachComponent,
-    'top center',
-    'bottom top+=25%'
+    50,
+    '.heading-insert',
+    'top 60%',
+    'bottom 5%',
   );
 
   //--> Section Scroll Animations
@@ -287,9 +291,9 @@ mm.add('(min-width: 767px)', () => {
         duration: 1,
         scrollTrigger: {
           trigger: e,
-          start: 'top',
-          end: 'bottom center+=15%',
-          ease: 'sine.in',
+          start: 'top center-=25%',
+          end: 'bottom center+=25%',
+          ease: 'circ.out',
           scrub: 1,
         },
       });
@@ -321,7 +325,7 @@ mm.add('(min-width: 767px)', () => {
   function modalCloser() {
     const modalComponent = document.querySelectorAll('.modal-component');
     const closeButton = document.querySelectorAll(
-      '.modal-card.is-close-button'
+      '.modal-card.is-close-button',
     );
     const buttonView = document.querySelectorAll('.button-view');
 
